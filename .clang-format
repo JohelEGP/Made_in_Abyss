@@ -43,6 +43,8 @@ IncludeCategories:
         Priority:   4
     -   Regex:      '<jegp/'
         Priority:   6
+    -   Regex:      '<mia/'
+        Priority:   7
     -   Regex:      '<.*' # Others
         Priority:   5
 IndentCaseLabels: false
@@ -52,7 +54,7 @@ IndentWrappedFunctionNames: false
 KeepEmptyLinesAtTheStartOfBlocks: false
 Language: Cpp
 MaxEmptyLinesToKeep: 1
-NamespaceIndentation: None
+NamespaceIndentation: Inner
 PenaltyReturnTypeOnItsOwnLine: 35357
 PointerAlignment: Left
 ReflowComments: true
