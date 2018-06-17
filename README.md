@@ -18,7 +18,9 @@ starting at [doc/intro.md](doc/intro.md).
 This project uses C++17.
 CMake takes care of the following missing dependencies.
 
+- [GSL](https://github.com/Microsoft/GSL)
 - [Range v3](https://github.com/ericniebler/range-v3)
+- [fmt](https://github.com/fmtlib/fmt)
 - [units](https://github.com/nholthaus/units)
 
 ### Building
@@ -30,8 +32,12 @@ to configure and build the game:
     cmake -E chdir build cmake ..
     cmake --build build
 
-### Testing
+#### Testing
 
-All testing is done at compile-time.
+Most testing is done at compile-time.
 The lack of compile-time errors after building the library
-means that the tests passed.
+means that those tests passed.
+
+To run the runtime tests, execute:
+
+    cmake -E chdir build ctest

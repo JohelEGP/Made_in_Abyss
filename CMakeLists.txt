@@ -9,7 +9,9 @@ add_library(mia INTERFACE)
 target_include_directories(mia INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_features(mia INTERFACE cxx_std_17)
 target_link_libraries(mia INTERFACE
+    GSL
     range-v3
+    fmt::fmt-header-only
     units)
 
 add_executable(Made_in_Abyss src/mia.cpp)
