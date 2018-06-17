@@ -40,5 +40,5 @@ FetchContent_Declare(units
 FetchContent_GetProperties(units)
 if(NOT units_POPULATED)
     FetchContent_Populate(units)
-    add_subdirectory(${units_SOURCE_DIR} ${units_BINARY_DIR})
+    add_subdirectory(${units_SOURCE_DIR} ${units_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
