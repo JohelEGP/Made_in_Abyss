@@ -3,6 +3,7 @@ language: cpp
 env:
   global:
   - PATH=/tmp/bin:$PATH
+  - LD_LIBRARY_PATH=/tmp/lib:$LD_LIBRARY_PATH
   - CMAKE_CXX_FLAGS="-Wpedantic -Wall -Wextra"
 
 matrix:
