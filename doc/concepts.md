@@ -58,8 +58,7 @@ using WeakQuantityWith =
 ### Quantities \[concepts.object.qty]
 
 This subclause describes concepts
-to constrain types that should represent
-[quantities](https://www.bipm.org/en/publications/si-brochure/chapter1.html).
+to constrain types that should represent quantities.
 
 ```C++
 namespace mia::concepts {
