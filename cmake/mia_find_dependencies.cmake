@@ -10,8 +10,8 @@ FetchContent_Declare(fmt
     GIT_REPOSITORY https://github.com/fmtlib/fmt.git
     GIT_SHALLOW True)
 FetchContent_Declare(units
-    GIT_REPOSITORY https://github.com/johelegp/units.git
-    GIT_TAG sfinae
+    GIT_REPOSITORY https://github.com/nholthaus/units.git
+    GIT_TAG v3.x
     GIT_SHALLOW True)
 
 FetchContent_GetProperties(GSL)
