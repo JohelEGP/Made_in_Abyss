@@ -108,7 +108,8 @@ struct WeakQuantity {
 \[ _Note:_  The `WeakQuantity` concept
 is satisfied by types
 that behave like quantities
-with respect to non unit-modifying operations. -- _end note_ ]
+with respect to operations
+that result in the same unit. -- _end note_ ]
 
 ```C++
 namespace mia::concepts {
@@ -148,8 +149,9 @@ struct WeakQuantityWith {
 
 } // namespace mia::concepts
 ```
-Let `t` and `u` be `const` lvalues
-of types `T` and `U`, respectively,
+Let `t` and `u` be lvalues
+of types `const T` and `const U`,
+respectively,
 and `C` be `ranges::common_reference_t<T, U>`.
 `WeakQuantityWith` is satisfied only if:
 - `t + u == C(t) + C(u)`.
@@ -162,4 +164,5 @@ and `C` be `ranges::common_reference_t<T, U>`.
 \[ _Note:_ The `WeakQuantityWith` concept
 is satisfied by unordered pairs of types
 that behave like quantities
-with respect to non dimension-modifying operations. -- _end note_ ]
+with respect to operations
+that result in the same dimension. -- _end note_ ]
