@@ -7,7 +7,7 @@ that C++ programs may use
 to represent quantities.
 
 The following subclauses describe
-templated type aliases
+alias templates
 that represent units of measurement
 and their dimensions
 using the `units` framework,
