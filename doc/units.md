@@ -18,7 +18,7 @@ Table \[units] -- Units library summary
 |                     | Subclause     | Header(s)         |
 | ------------------- | ------------- | ----------------- |
 | \[units.dimensions] | Dimensions    | `<mia/units.hpp>` |
-| \[units.display]    | Display units |
+| \[display.units]    | Display units |
 
 ## Header `<mia/units.hpp>` synopsis \[units.syn]
 
@@ -34,11 +34,11 @@ namespace dimension {
 
 } // namespace dimension
 
-// \[units.display], display units
+// \[display.units], display units
 
 inline namespace display_length { //
 
-    // \[units.display.aliases], aliases
+    // \[display.units.aliases], aliases
     template <class Arithmetic>
     using Pixels = /*see below*/
 
@@ -47,7 +47,7 @@ inline namespace display_length { //
 inline namespace literals {
     inline namespace pixels_literals { //
 
-        // \[units.display.literals], suffix for `Pixels` literals
+        // \[display.units.literals], suffix for `Pixels` literals
         constexpr Pixels<double> operator""_px(long double px) noexcept;
         constexpr Pixels<int> operator""_px(unsigned long long px) noexcept;
 
@@ -77,15 +77,15 @@ _Display length_ is a base quantity.
 The pixel is its base unit.
 It is represented by `mia::dimension::Display_length`.
 
-## Display units \[units.display]
+## Display units \[display.units]
 
-### Overview \[units.display.overview]
+### Overview \[display.units.overview]
 
 This subclause describes
 units of display length
 and derived units thereof.
 
-### Aliases \[units.display.aliases]
+### Aliases \[display.units.aliases]
 
 ```C++
 template <class Arithmetic>
@@ -105,7 +105,7 @@ It is represented
 by instantiations of the type aliased by `Pixels`
 and equivalent instantiations.
 
-### Suffix for `Pixels` literals \[units.display.literals]
+### Suffix for `Pixels` literals \[display.units.literals]
 
 ```C++
 constexpr Pixels<double> operator""_px(long double px) noexcept;
