@@ -59,6 +59,7 @@ constexpr void test_pixels()
     assert(&px == &(px *= 1));
     assert(&px == &(px /= 1));
     assert(&px == &(px %= 1));
+    assert(&px == &(px %= 1_px));
 }
 
 void runtime_test_pixels()
