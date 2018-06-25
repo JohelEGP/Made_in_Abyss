@@ -4,7 +4,7 @@
 #include <ratio>
 #include <gsl/gsl_util>
 #include <gsl/string_span>
-#include <units.h>
+#include <mia/ext/units.hpp>
 
 namespace mia {
 

@@ -1,5 +1,6 @@
 #include <cassert>
 #include <functional>
+#include <range/v3/utility/concepts.hpp>
 #include <fmt/ostream.h>
 #include <mia/concepts.hpp>
 #include <mia/units.hpp>
