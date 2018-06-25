@@ -1,5 +1,6 @@
 #include <cassert>
 #include <functional>
+#include <type_traits>
 #include <range/v3/utility/concepts.hpp>
 #include <fmt/ostream.h>
 #include <mia/concepts.hpp>
@@ -9,6 +10,9 @@ namespace {
 
 constexpr void test_pixels()
 {
+    static_assert(std::is_trivial_v<mia::Pixels<int>>);
+    static_assert(std::is_standard_layout_v<mia::Pixels<double>>);
+
     static_assert(ranges::Regular<mia::Pixels<int>>());
     static_assert(mia::WeakQuantity<mia::Pixels<double>>());
     static_assert(
@@ -17,49 +21,77 @@ constexpr void test_pixels()
 
     using namespace mia::pixels_literals;
 
-    int i{42};
-    mia::Pixels<int> px{42_px};
+    // `mia::WeakQuantity` semantics.
+    {
+        int i{42};
+        mia::Pixels<int> px{42_px};
 
-    auto test_cmp = [=](auto op) {
-        assert(op(0, i) == op(0_px, px));
-        assert(op(i, i) == op(px, px));
-        assert(op(i, 0) == op(px, 0_px));
-    };
+        auto test_cmp = [=](auto op) {
+            assert(op(0, i) == op(0_px, px));
+            assert(op(i, i) == op(px, px));
+            assert(op(i, 0) == op(px, 0_px));
+        };
 
-    test_cmp(std::less{});
-    test_cmp(std::less_equal{});
-    test_cmp(std::greater{});
-    test_cmp(std::greater_equal{});
+        test_cmp(std::less{});
+        test_cmp(std::less_equal{});
+        test_cmp(std::greater{});
+        test_cmp(std::greater_equal{});
 
-    assert(+i == (+px)());
-    assert(-i == (-px)());
-    assert(++i == (++px)());
-    assert(--i == (--px)());
-    assert(i++ == px++());
-    assert(i-- == px--());
-    assert(i + i == (px + px)());
-    assert(i - i == (px - px)());
-    assert(i * i == (px * i)());
-    assert(i * i == (i * px)());
-    assert(i / i == (px / i)());
-    assert(i / i == px / px);
-    assert(i % i == (px % i)());
-    assert(i % i == (px % px)());
-    assert((i += 42) == (px += 42_px)());
-    assert((i -= 42) == (px -= 42_px)());
-    assert((i *= 42) == (px *= 42)());
-    assert((i /= 42) == (px /= 42)());
-    assert((i %= 42) == (px %= 42)());
-    assert((i %= 42) == (px %= 42_px)());
+        assert(+i == (+px)());
+        assert(-i == (-px)());
+        assert(++i == (++px)());
+        assert(--i == (--px)());
+        assert(i++ == px++());
+        assert(i-- == px--());
+        assert(i + i == (px + px)());
+        assert(i - i == (px - px)());
+        assert(i * i == (px * i)());
+        assert(i * i == (i * px)());
+        assert(i / i == (px / i)());
+        assert(i / i == px / px);
+        assert(i % i == (px % i)());
+        assert(i % i == (px % px)());
+        assert((i += 42) == (px += 42_px)());
+        assert((i -= 42) == (px -= 42_px)());
+        assert((i *= 42) == (px *= 42)());
+        assert((i /= 42) == (px /= 42)());
+        assert((i %= 42) == (px %= 42)());
+        assert((i %= 42) == (px %= 42_px)());
 
-    assert(&px == &++px);
-    assert(&px == &--px);
-    assert(&px == &(px += 0_px));
-    assert(&px == &(px -= 0_px));
-    assert(&px == &(px *= 1));
-    assert(&px == &(px /= 1));
-    assert(&px == &(px %= 1));
-    assert(&px == &(px %= 1_px));
+        assert(&px == &++px);
+        assert(&px == &--px);
+        assert(&px == &(px += 0_px));
+        assert(&px == &(px -= 0_px));
+        assert(&px == &(px *= 1));
+        assert(&px == &(px /= 1));
+        assert(&px == &(px %= 1));
+        assert(&px == &(px %= 1_px));
+    }
+    // `mia::WeakQuantityWith` semantics.
+    {
+        mia::Pixels<short> s{42_px};
+        mia::Pixels<int> i{s};
+        s = i;
+        i = s;
+
+        auto test_cmp = [=](auto op) {
+            assert(op(0, 42) == op(0_px, s));
+            assert(op(42, 42) == op(s, i));
+            assert(op(42, 0) == op(s, 0_px));
+        };
+
+        test_cmp(std::less{});
+        test_cmp(std::less_equal{});
+        test_cmp(std::greater{});
+        test_cmp(std::greater_equal{});
+
+        assert(42 + 42 == (s + i)());
+        assert(42 + 42 == (i + s)());
+        assert(42 - 42 == (s - i)());
+        assert(42 - 42 == (i - s)());
+        assert(42 / 42 == s / i);
+        assert(42 / 42 == i / s);
+    }
 }
 
 void runtime_test_pixels()
