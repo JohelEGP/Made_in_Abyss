@@ -4,6 +4,7 @@
 #include <functional>
 #include <ratio>
 #include <type_traits>
+#include <utility>
 #include <gsl/gsl_util>
 #include <gsl/string_span>
 #include <range/v3/utility/common_type.hpp>
@@ -91,7 +92,7 @@ public:
                             ranges::ConvertibleTo<const Aliased2&, aliased>())>
     constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
         std::is_nothrow_constructible_v<aliased, const Aliased2&>)
-      : unaliased_(a.unaliased_)
+      : unaliased_(a.unaliased())
     {
     }
 
@@ -101,24 +102,28 @@ public:
         return unaliased_;
     }
 
-    constexpr derived& operator++() noexcept(noexcept(++unaliased_))
+    constexpr derived& operator++() noexcept(
+        noexcept(++std::declval<aliased&>()))
     {
         ++unaliased_;
         return derived_();
     }
 
-    constexpr derived& operator--() noexcept(noexcept(--unaliased_))
+    constexpr derived& operator--() noexcept(
+        noexcept(--std::declval<aliased&>()))
     {
         --unaliased_;
         return derived_();
     }
 
-    constexpr derived operator++(int) noexcept(noexcept(derived(unaliased_++)))
+    constexpr derived operator++(int) noexcept(
+        noexcept(derived(std::declval<aliased&>()++)))
     {
         return derived(unaliased_++);
     }
 
-    constexpr derived operator--(int) noexcept(noexcept(derived(unaliased_--)))
+    constexpr derived operator--(int) noexcept(
+        noexcept(derived(std::declval<aliased&>()--)))
     {
         return derived(unaliased_--);
     }
@@ -128,7 +133,7 @@ public:
         CONCEPT_REQUIRES_(WeakQuantityWith<Aliased2, aliased>())>
     constexpr derived& operator+=(
         const Unit_alias<Alias<Aliased2>>&
-            r) noexcept(noexcept(unaliased_ += r.unaliased_))
+            r) noexcept(noexcept(std::declval<aliased&>() += r.unaliased_))
     {
         unaliased_ += r.unaliased_;
         return derived_();
@@ -139,7 +144,7 @@ public:
         CONCEPT_REQUIRES_(WeakQuantityWith<Aliased2, aliased>())>
     constexpr derived& operator-=(
         const Unit_alias<Alias<Aliased2>>&
-            r) noexcept(noexcept(unaliased_ -= r.unaliased_))
+            r) noexcept(noexcept(std::declval<aliased&>() -= r.unaliased_))
     {
         unaliased_ -= r.unaliased_;
         return derived_();
@@ -147,7 +152,7 @@ public:
 
     template <class One, CONCEPT_REQUIRES_(QuantityOneWith<One, aliased>())>
     constexpr derived& operator*=(const One& r) noexcept(
-        noexcept(unaliased_ *= r))
+        noexcept(std::declval<aliased&>() *= r))
     {
         unaliased_ *= r;
         return derived_();
@@ -155,7 +160,7 @@ public:
 
     template <class One, CONCEPT_REQUIRES_(QuantityOneWith<One, aliased>())>
     constexpr derived& operator/=(const One& r) noexcept(
-        noexcept(unaliased_ /= r))
+        noexcept(std::declval<aliased&>() /= r))
     {
         unaliased_ /= r;
         return derived_();
@@ -163,7 +168,7 @@ public:
 
     template <class One, CONCEPT_REQUIRES_(QuantityOneWith<One, aliased>())>
     constexpr derived& operator%=(const One& r) noexcept(
-        noexcept(unaliased_ %= r))
+        noexcept(std::declval<aliased&>() %= r))
     {
         unaliased_ %= r;
         return derived_();
@@ -174,7 +179,7 @@ public:
         CONCEPT_REQUIRES_(WeakQuantityWith<Aliased2, aliased>())>
     constexpr derived& operator%=(
         const Unit_alias<Alias<Aliased2>>&
-            r) noexcept(noexcept(unaliased_ %= r.unaliased_))
+            r) noexcept(noexcept(std::declval<aliased&>() %= r.unaliased_))
     {
         unaliased_ %= r.unaliased_;
         return derived_();

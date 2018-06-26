@@ -317,7 +317,7 @@ template <class Aliased2>
 EXPLICIT constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `Unit_alias(a.unaliased_)`.
+_Effects:_ Equivalent to: `Unit_alias(a.unaliased())`.
 
 _Remarks:_ The constructor is explicit if and only if
 `ranges::ConvertibleTo<const Aliased2&, aliased>()` is `false`.
@@ -342,7 +342,7 @@ _Effects:_ Equivalent to: `++unaliased_`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(++unaliased_)`.
+`noexcept(++std::declval<aliased&>())`.
 
 ```C++
 constexpr derived& operator--() noexcept(/*see below*/);
@@ -352,7 +352,7 @@ _Effects:_ Equivalent to: `--unaliased_`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(--unaliased_)`.
+`noexcept(--std::declval<aliased&>())`.
 
 ```C++
 constexpr derived operator++(int) noexcept(/*see below*/);
@@ -360,7 +360,7 @@ constexpr derived operator++(int) noexcept(/*see below*/);
 _Effects:_ Equivalent to: `return derived(unaliased_++);`
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(derived(unaliased_++))`.
+`noexcept(derived(std::declval<aliased&>()++))`.
 
 ```C++
 constexpr derived operator--(int) noexcept(/*see below*/);
@@ -368,7 +368,7 @@ constexpr derived operator--(int) noexcept(/*see below*/);
 _Effects:_ Equivalent to: `return derived(unaliased_--);`
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(derived(unaliased_--))`.
+`noexcept(derived(std::declval<aliased&>()--))`.
 
 ```C++
 template <class Aliased2>
@@ -380,7 +380,7 @@ _Effects:_ Equivalent to: `unaliased_ += r.unaliased_`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(unaliased_ += r.unaliased_)`.
+`noexcept(std::declval<aliased&>() += r.unaliased_)`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
@@ -394,7 +394,7 @@ _Effects:_ Equivalent to: `unaliased_ -= r.unaliased_`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(unaliased_ -= r.unaliased_)`.
+`noexcept(std::declval<aliased&>() -= r.unaliased_)`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
@@ -407,7 +407,7 @@ _Effects:_ Equivalent to: `unaliased_ *= r`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(unaliased_ *= r)`.
+`noexcept(std::declval<aliased&>() *= r)`.
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, aliased>()` is `true`.
 
@@ -420,7 +420,7 @@ _Effects:_ Equivalent to: `unaliased_ /= r`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(unaliased_ /= r)`.
+`noexcept(std::declval<aliased&>() /= r)`.
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, aliased>()` is `true`.
 
@@ -433,7 +433,7 @@ _Effects:_ Equivalent to: `unaliased_ %= r`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(unaliased_ %= r)`.
+`noexcept(std::declval<aliased&>() %= r)`.
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, aliased>()` is `true`.
 
@@ -447,7 +447,7 @@ _Effects:_ Equivalent to: `unaliased_ %= r.unaliased_`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(unaliased_ %= r.unaliased_)`.
+`noexcept(std::declval<aliased&>() %= r.unaliased_)`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
