@@ -20,6 +20,7 @@ CMake takes care of the following missing dependencies.
 
 - [GSL](https://github.com/Microsoft/GSL)
 - [Range v3](https://github.com/ericniebler/range-v3)
+- [JEGP](https://github.com/johelegp/jegp)
 - [fmt](https://github.com/fmtlib/fmt)
 - [units](https://github.com/nholthaus/units)
 

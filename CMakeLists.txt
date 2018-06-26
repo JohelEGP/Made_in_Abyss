@@ -11,6 +11,7 @@ target_compile_features(mia INTERFACE cxx_std_17)
 target_link_libraries(mia INTERFACE
     GSL
     range-v3
+    jegp::jegp
     fmt::fmt-header-only
     units)
 
