@@ -82,7 +82,7 @@ public:
                             !ranges::ConvertibleTo<const Aliased2&, aliased>())>
     explicit constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) //
         noexcept(std::is_nothrow_constructible_v<aliased, const Aliased2&>)
-      : unaliased_(a.unaliased_)
+      : unaliased_(a.unaliased())
     {
     }
 
