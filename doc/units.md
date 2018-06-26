@@ -51,8 +51,8 @@ inline namespace literals {
     inline namespace pixels_literals { //
 
         // \[display.units.literals], suffix for `Pixels` literals
-        constexpr Pixels<double> operator""_px(long double px) noexcept;
-        constexpr Pixels<int> operator""_px(unsigned long long px) noexcept;
+        constexpr Pixels<double> operator""_px(long double px);
+        constexpr Pixels<int> operator""_px(unsigned long long px);
 
     } // namespace pixels_literals
 } // namespace literals
@@ -196,12 +196,12 @@ and equivalent instantiations.
 ### Suffix for `Pixels` literals \[display.units.literals]
 
 ```C++
-constexpr Pixels<double> operator""_px(long double px) noexcept;
+constexpr Pixels<double> operator""_px(long double px);
 ```
 _Returns:_ `Pixels<double>{gsl::narrow_cast<double>(px)}`.
 
 ```C++
-constexpr Pixels<int> operator""_px(unsigned long long px) noexcept;
+constexpr Pixels<int> operator""_px(unsigned long long px);
 ```
 _Returns:_ `Pixels<int>{gsl::narrow_cast<int>(px)}`.
 
