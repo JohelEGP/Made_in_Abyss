@@ -241,7 +241,7 @@ constexpr auto operator*(
 }
 
 template <
-    class One, template <class> class Alias, class Aliased,
+    template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
 constexpr auto operator*(
     const One& l, const Unit_alias<Alias<Aliased>>&

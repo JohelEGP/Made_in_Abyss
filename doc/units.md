@@ -81,7 +81,7 @@ constexpr auto operator-(
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
     const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
-template <class One, template <class> class Alias, class Aliased>
+template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
     const One& l, const Unit_alias<Alias<Aliased>>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased, class One>
@@ -512,7 +512,7 @@ This function shall not participate in overload resolution
 unless `QuantityOneWith<One, Aliased>()` is `true`.
 
 ```C++
-template <class One, template <class> class Alias, class Aliased>
+template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
     const One& l, const Unit_alias<Alias<Aliased>>& r) noexcept(/*see below*/);
 ```
