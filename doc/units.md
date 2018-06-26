@@ -375,12 +375,12 @@ template <class Aliased2>
 constexpr derived& operator+=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `unaliased_ += r.unaliased_`.
+_Effects:_ Equivalent to: `unaliased_ += r.unaliased()`.
 
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(std::declval<aliased&>() += r.unaliased_)`.
+`noexcept(std::declval<aliased&>() += std::declval<aliased>())`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
@@ -389,12 +389,12 @@ template <class Aliased2>
 constexpr derived& operator-=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `unaliased_ -= r.unaliased_`.
+_Effects:_ Equivalent to: `unaliased_ -= r.unaliased()`.
 
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(std::declval<aliased&>() -= r.unaliased_)`.
+`noexcept(std::declval<aliased&>() -= std::declval<aliased>())`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
@@ -442,12 +442,12 @@ template <class Aliased2>
 constexpr derived& operator%=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `unaliased_ %= r.unaliased_`.
+_Effects:_ Equivalent to: `unaliased_ %= r.unaliased()`.
 
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(std::declval<aliased&>() %= r.unaliased_)`.
+`noexcept(std::declval<aliased&>() %= std::declval<aliased>())`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 

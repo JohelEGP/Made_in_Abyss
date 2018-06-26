@@ -73,15 +73,15 @@ constexpr void test_pixels()
     }
     // `mia::WeakQuantityWith` semantics.
     {
-        mia::Pixels<short> s{42_px};
-        mia::Pixels<int> i{s};
-        s = i;
-        i = s;
+        mia::Pixels<long> l{42_px};
+        mia::Pixels<int> i{l};
+        l = i;
+        i = l;
 
         auto test_cmp = [=](auto op) {
-            assert(op(0, 42) == op(0_px, s));
-            assert(op(42, 42) == op(s, i));
-            assert(op(42, 0) == op(s, 0_px));
+            assert(op(0, 42) == op(0_px, l));
+            assert(op(42, 42) == op(l, i));
+            assert(op(42, 0) == op(l, 0_px));
         };
 
         test_cmp(std::less{});
@@ -89,12 +89,34 @@ constexpr void test_pixels()
         test_cmp(std::greater{});
         test_cmp(std::greater_equal{});
 
-        assert(42 + 42 == (s + i)());
-        assert(42 + 42 == (i + s)());
-        assert(42 - 42 == (s - i)());
-        assert(42 - 42 == (i - s)());
-        assert(42 / 42 == s / i);
-        assert(42 / 42 == i / s);
+        assert(42_px + 42_px == l + i);
+        assert(42_px + 42_px == i + l);
+        assert(42_px - 42_px == l - i);
+        assert(42_px - 42_px == i - l);
+        assert(42_px * 42 == l * 42);
+        assert(42_px * 42 == 42 * l);
+        assert(42_px * 42 == i * 42L);
+        assert(42_px * 42 == 42L * i);
+        assert(42_px / 42 == l / 42);
+        assert(42_px / 42 == i / 42L);
+        assert(42_px / 42_px == l / i);
+        assert(42_px / 42_px == i / l);
+        assert(42_px % 42_px == l % 42);
+        assert(42_px % 42_px == i % 42L);
+        assert(42_px % 42_px == l % i);
+        assert(42_px % 42_px == i % l);
+        assert(42_px + 42_px == (l += i));
+        assert(42_px + 84_px == (i += l));
+        assert(84_px - 126_px == (l -= i));
+        assert(126_px + 42_px == (i -= l));
+        assert(-42_px * -2 == (l *= -2.0));
+        assert(168_px * 1 == (i *= 1.0));
+        assert(84_px / 2 == (l /= 2));
+        assert(168_px / 4 == (i /= 4L));
+        assert(42_px % 42_px == (l %= 42));
+        assert(42_px % 42_px == (i %= 42L));
+        assert(42_px % 42_px == (l %= 42_px));
+        assert(42_px % 42_px == (i %= mia::Pixels<long>{42}));
     }
 }
 
@@ -199,17 +221,15 @@ constexpr void test_radius()
     }
     // `mia::WeakQuantityWith` semantics.
     {
-        using namespace units::literals;
-
-        Radius<units::length::millimeter_t> mm{42_m};
-        Radius<units::length::meter_t> m{mm};
-        mm = m;
-        m  = mm;
+        Radius i{42_px};
+        Radius<mia::Pixels<long>> l{i};
+        i = l;
+        l = i;
 
         auto test_cmp = [=](auto op) {
-            assert(op(0_m, 42_m) == op(Radius{0_m}, mm));
-            assert(op(42_m, 42_m) == op(mm, m));
-            assert(op(42_m, 0_m) == op(mm, Radius{0_m}));
+            assert(op(0_px, 42_px) == op(Radius{0_px}, i));
+            assert(op(42_px, 42_px) == op(i, l));
+            assert(op(42_px, 0_px) == op(i, Radius{0_px}));
         };
 
         test_cmp(std::less{});
@@ -217,12 +237,34 @@ constexpr void test_radius()
         test_cmp(std::greater{});
         test_cmp(std::greater_equal{});
 
-        assert(42_m + 42_m == (mm + m).unaliased());
-        assert(42_m + 42_m == (m + mm).unaliased());
-        assert(42_m - 42_m == (mm - m).unaliased());
-        assert(42_m - 42_m == (m - mm).unaliased());
-        assert(42_m / 42_m == mm / m);
-        assert(42_m / 42_m == m / mm);
+        assert(42_px + 42_px == (i + l).unaliased());
+        assert(42_px + 42_px == (l + i).unaliased());
+        assert(42_px - 42_px == (i - l).unaliased());
+        assert(42_px - 42_px == (l - i).unaliased());
+        assert(42_px * 42 == (i * 42L).unaliased());
+        assert(42_px * 42 == (42L * i).unaliased());
+        assert(42_px * 42 == (l * 42).unaliased());
+        assert(42_px * 42 == (42 * l).unaliased());
+        assert(42_px / 42 == (i / 42L).unaliased());
+        assert(42_px / 42 == (l / 42).unaliased());
+        assert(42_px / 42_px == i / l);
+        assert(42_px / 42_px == l / i);
+        assert(42_px % 42 == (i % 42L).unaliased());
+        assert(42_px % 42 == (l % 42).unaliased());
+        assert(42_px % 42_px == (i % l).unaliased());
+        assert(42_px % 42_px == (l % i).unaliased());
+        assert(42_px + 42_px == (i += l).unaliased());
+        assert(42_px + 84_px == (l += i).unaliased());
+        assert(84_px - 126_px == (i -= l).unaliased());
+        assert(126_px + 42_px == (l -= i).unaliased());
+        assert(-42_px * -2 == (i *= -2.0).unaliased());
+        assert(168_px * 1 == (l *= 1.0).unaliased());
+        assert(84_px / 2 == (i /= 2L).unaliased());
+        assert(168_px / 4 == (l /= 4).unaliased());
+        assert(42_px % 42 == (i %= 42L).unaliased());
+        assert(42_px % 42 == (l %= 42).unaliased());
+        assert(42_px % 42_px == (i %= decltype(l){42_px}).unaliased());
+        assert(42_px % 42_px == (l %= Radius{42_px}).unaliased());
     }
 }
 
