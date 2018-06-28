@@ -275,21 +275,27 @@ private:
 } // namespace mia
 ```
 
-`WeakQuantity<Aliased>()`
-shall be `true`.
+If `WeakQuantity<Aliased>()` is `false`,
+the program is ill-formed.
 
-`ranges::DerivedFrom<Alias<Aliased>, Unit_alias<Alias<Aliased>>>()`
-shall be `true`,
+If the definition of `Alias` isn't equivalent to
+```C++
+template <class Aliased>
+class Alias : public Unit_alias<Alias<Aliased>> {
+public:
+    using Unit_alias<Alias<Aliased>>::Unit_alias;
+};
+
+template <class Aliased>
+explicit Alias(const Aliased&)->Alias<Aliased>;
+```
+the program is ill-formed,
 no diagnostic required.
 
-`Alias{E}`,
-where `E` has value type `AliasedE`,
-shall have type `Alias<AliasedE>`,
-no diagnostic required.
-
-`ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
-shall be
+If `ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
+doesn't name the same type as
 `Alias<ranges::common_type_t<Aliased1, Aliased2>>`,
+the program is ill-formed,
 no diagnostic required.
 
 Members of `Unit_alias`
