@@ -17,11 +17,11 @@ as summarized in Table \[units].
 
 Table \[units] -- Units library summary
 
-|                    | Subclause     | Header(s)         |
-| ------------------ | ------------- | ----------------- |
-| \[unit.dimensions] | Dimensions    | `<mia/units.hpp>` |
-| \[display.units]   | Display units |
-| \[unit.alias]      | Unit alias    |
+|                  | Subclause     | Header(s)         |
+| ---------------- | ------------- | ----------------- |
+| \[unit.dims]     | Dimensions    | `<mia/units.hpp>` |
+| \[display.units] | Display units |
+| \[unit.alias]    | Unit alias    |
 
 ## Header `<mia/units.hpp>` synopsis \[units.syn]
 
@@ -30,7 +30,7 @@ namespace mia {
 
 namespace dimension {
 
-    // \[unit.dimensions], dimensions
+    // \[unit.dims], dimensions
     struct Display_length_tag;
 
     using Display_length = units::make_dimension<Display_length_tag>;
@@ -145,7 +145,7 @@ struct hash<mia::Unit_alias<Alias<Aliased>>>;
 } // namespace std
 ```
 
-## Dimensions \[unit.dimensions]
+## Dimensions \[unit.dims]
 
 This subclause describes
 program-defined dimensions.
