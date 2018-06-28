@@ -127,7 +127,7 @@ constexpr auto operator>=(
 
 } // namespace mia
 
-// \[unit.alias.specializations], specializations
+// \[unit.alias.specs], specializations
 
 namespace ranges {
 
@@ -639,7 +639,7 @@ constexpr auto operator>=(
 ```
 _Effects:_ Equivalent to: `return !(l < r);`
 
-### Specializations \[unit.alias.specializations]
+### Specializations \[unit.alias.specs]
 
 ```C++
 namespace ranges {
