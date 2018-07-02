@@ -392,7 +392,7 @@ _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(std::declval<aliased&>() += r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
+unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
 
 ```C++
 template <class Aliased2>
@@ -406,7 +406,7 @@ _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(std::declval<aliased&>() -= r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
+unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
 
 ```C++
 template <class One>
@@ -459,7 +459,7 @@ _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(std::declval<aliased&>() %= r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
+unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
 
 #### Non-member arithmetic \[unit.alias.nonmember]
 
