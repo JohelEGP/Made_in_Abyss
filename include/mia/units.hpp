@@ -78,20 +78,22 @@ public:
 
     template <
         class Aliased2, CONCEPT_REQUIRES_(
-                            ranges::Constructible<aliased, const Aliased2&>() &&
-                            !ranges::ConvertibleTo<const Aliased2&, aliased>())>
-    explicit constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) //
-        noexcept(std::is_nothrow_constructible_v<aliased, const Aliased2&>)
+                            ranges::Constructible<aliased, Aliased2>() &&
+                            !ranges::ConvertibleTo<Aliased2, aliased>())>
+    explicit constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
+        noexcept(a.unaliased()) &&
+        std::is_nothrow_constructible_v<aliased, Aliased2>)
       : unaliased_(a.unaliased())
     {
     }
 
     template <
         class Aliased2, CONCEPT_REQUIRES_(
-                            ranges::Constructible<aliased, const Aliased2&>() &&
-                            ranges::ConvertibleTo<const Aliased2&, aliased>())>
+                            ranges::Constructible<aliased, Aliased2>() &&
+                            ranges::ConvertibleTo<Aliased2, aliased>())>
     constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
-        std::is_nothrow_constructible_v<aliased, const Aliased2&>)
+        noexcept(a.unaliased()) &&
+        std::is_nothrow_constructible_v<aliased, Aliased2>)
       : unaliased_(a.unaliased())
     {
     }
@@ -131,9 +133,9 @@ public:
     template <
         class Aliased2,
         CONCEPT_REQUIRES_(WeakQuantityWith<Aliased2, aliased>())>
-    constexpr derived&
-    operator+=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
-        noexcept(std::declval<aliased&>() += std::declval<aliased>()))
+    constexpr derived& operator+=(
+        const Unit_alias<Alias<Aliased2>>&
+            r) noexcept(noexcept(std::declval<aliased&>() += r.unaliased()))
     {
         unaliased_ += r.unaliased();
         return derived_();
@@ -142,9 +144,9 @@ public:
     template <
         class Aliased2,
         CONCEPT_REQUIRES_(WeakQuantityWith<Aliased2, aliased>())>
-    constexpr derived&
-    operator-=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
-        noexcept(std::declval<aliased&>() -= std::declval<aliased>()))
+    constexpr derived& operator-=(
+        const Unit_alias<Alias<Aliased2>>&
+            r) noexcept(noexcept(std::declval<aliased&>() -= r.unaliased()))
     {
         unaliased_ -= r.unaliased();
         return derived_();
@@ -177,9 +179,9 @@ public:
     template <
         class Aliased2,
         CONCEPT_REQUIRES_(WeakQuantityWith<Aliased2, aliased>())>
-    constexpr derived&
-    operator%=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
-        noexcept(std::declval<aliased&>() %= std::declval<aliased>()))
+    constexpr derived& operator%=(
+        const Unit_alias<Alias<Aliased2>>&
+            r) noexcept(noexcept(std::declval<aliased&>() %= r.unaliased()))
     {
         unaliased_ %= r.unaliased();
         return derived_();

@@ -323,10 +323,14 @@ template <class Aliased2>
 EXPLICIT constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `Unit_alias(a.unaliased())`.
+_Effects:_ Initializes `unaliased_` with `a.unaliased()`.
 
-_Remarks:_ The constructor is explicit if and only if
-`ranges::ConvertibleTo<const Aliased2&, aliased>()` is `false`.
+_Remarks:_ The expression inside `noexcept` is equivalent to
+`noexcept(a.unaliased()) && std::is_nothrow_constructible_v<aliased, Aliased2>`.
+This constructor shall not participate in overload resolution
+unless `ranges::Constructible<aliased, Aliased2>()` is `true`.
+The constructor is explicit if and only if
+`ranges::ConvertibleTo<Aliased2, aliased>()` is `false`.
 
 #### Observer \[unit.alias.obs]
 
@@ -386,7 +390,7 @@ _Effects:_ Equivalent to: `unaliased_ += r.unaliased()`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(std::declval<aliased&>() += std::declval<aliased>())`.
+`noexcept(std::declval<aliased&>() += r.unaliased())`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
@@ -400,7 +404,7 @@ _Effects:_ Equivalent to: `unaliased_ -= r.unaliased()`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(std::declval<aliased&>() -= std::declval<aliased>())`.
+`noexcept(std::declval<aliased&>() -= r.unaliased())`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
@@ -453,7 +457,7 @@ _Effects:_ Equivalent to: `unaliased_ %= r.unaliased()`.
 _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(std::declval<aliased&>() %= std::declval<aliased>())`.
+`noexcept(std::declval<aliased&>() %= r.unaliased())`.
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased2, aliased>()` is `true`.
 
