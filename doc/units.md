@@ -161,9 +161,9 @@ struct Display_length_tag {
 } // namespace mia::dimension
 ```
 
-_Display length_ is a base quantity.
+_Display length_ is a base quantity
+represented by `mia::dimension::Display_length`.
 The pixel is its base unit.
-It is represented by `mia::dimension::Display_length`.
 
 ## Display units \[display.units]
 
