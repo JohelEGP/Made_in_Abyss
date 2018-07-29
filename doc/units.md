@@ -182,7 +182,7 @@ using Pixels = units::unit<
     Arithmetic>;
 ```
 
-A _Pixel_ is
+A _pixel_ is
 "the smallest addressable element
 in an all points addressable display device"
 ([Wikipedia](https://en.wikipedia.org/wiki/Pixel))
@@ -190,8 +190,8 @@ in an all points addressable display device"
 when viewed at a distance"
 ([Wikipedia](https://en.wikipedia.org/wiki/Pixel#Subpixels)).
 It is represented
-by instantiations of the type aliased by `Pixels`
-and equivalent instantiations.
+by specializations of the template aliased by `Pixels`
+and convertible specializations thereof.
 
 ### Suffix for `Pixels` literals \[display.units.literals]
 
