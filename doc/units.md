@@ -304,8 +304,7 @@ on their aliased objects.
 template <class Aliased2>
 explicit constexpr Unit_alias(const Aliased2& a) noexcept(/*see below*/);
 ```
-_Effects:_ Constructs an object of type `Unit_alias`,
-constructing `unaliased_` from `a`.
+_Effects:_ Initializes `unaliased_` with `a`.
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `std::is_nothrow_constructible_v<aliased, const Aliased2&>`.
