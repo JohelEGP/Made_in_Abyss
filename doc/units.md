@@ -125,6 +125,12 @@ constexpr auto operator>=(
     const Unit_alias<Alias<Aliased1>>& l,
     const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
 
+// \[unit.alias.io], I/O
+
+template <class... T, template <class> class Alias, class Aliased>
+std::basic_ostream<T...>& operator<<(
+    std::basic_ostream<T...>& os, const Unit_alias<Alias<Aliased>>& a);
+
 } // namespace mia
 
 // \[unit.alias.specs], specializations
@@ -635,6 +641,16 @@ constexpr auto operator>=(
     const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return !(l < r);`
+
+#### I/O \[unit.alias.io]
+
+```C++
+template <class... T, template <class> class Alias, class Aliased>
+std::basic_ostream<T...>& operator<<(
+    std::basic_ostream<T...>& os, const Unit_alias<Alias<Aliased>>& a);
+```
+
+_Effects:_ Equivalent to: `return os << a.unaliased();`
 
 ### Specializations \[unit.alias.specs]
 

@@ -2,6 +2,7 @@
 #define MIA_UNITS_HPP
 
 #include <functional>
+#include <ostream>
 #include <ratio>
 #include <type_traits>
 #include <utility>
@@ -350,6 +351,13 @@ constexpr auto operator>=(
     -> decltype(!(l < r))
 {
     return !(l < r);
+}
+
+template <class... T, template <class> class Alias, class Aliased>
+std::basic_ostream<T...>& operator<<(
+    std::basic_ostream<T...>& os, const Unit_alias<Alias<Aliased>>& a)
+{
+    return os << a.unaliased();
 }
 
 } // namespace mia

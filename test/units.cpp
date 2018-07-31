@@ -268,7 +268,14 @@ constexpr void test_radius()
     }
 }
 
-constexpr auto test_unit_alias = test_radius;
+void runtime_test_radius()
+{
+    using namespace mia::pixels_literals;
+    assert((fmt::format("{}", Radius{20_px})) == "20 px");
+}
+
+constexpr auto test_unit_alias         = test_radius;
+constexpr auto runtime_test_unit_alias = runtime_test_radius;
 
 constexpr int test()
 {
@@ -280,6 +287,7 @@ constexpr int test()
 void runtime_test()
 {
     runtime_test_pixels();
+    runtime_test_unit_alias();
 }
 
 } // namespace
