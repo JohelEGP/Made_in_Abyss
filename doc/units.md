@@ -652,7 +652,7 @@ std::basic_ostream<T...>& operator<<(
 
 _Effects:_ Equivalent to: `return os << a.unaliased();`
 
-### Specializations \[unit.alias.specs]
+#### Specializations \[unit.alias.specs]
 
 ```C++
 namespace ranges {
