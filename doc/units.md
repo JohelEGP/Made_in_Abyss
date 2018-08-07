@@ -58,78 +58,76 @@ inline namespace literals {
 } // namespace literals
 
 // \[unit.alias.template], class template `Unit_alias`
-template <class Derived>
-class Unit_alias; /*undefined*/
 template <template <class> class Alias, class Aliased>
-class Unit_alias<Alias<Aliased>>;
+class Unit_alias;
 
 // \[unit.alias.nonmember], non-member arithmetic
 template <template <class> class Alias, class Aliased>
-constexpr auto operator+(const Unit_alias<Alias<Aliased>>& a) noexcept(
+constexpr auto operator+(const Unit_alias<Alias, Aliased>& a) noexcept(
     /*see below*/);
 template <template <class> class Alias, class Aliased>
-constexpr auto operator-(const Unit_alias<Alias<Aliased>>& a) noexcept(
+constexpr auto operator-(const Unit_alias<Alias, Aliased>& a) noexcept(
     /*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator+(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator-(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
-    const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
-    const One& l, const Unit_alias<Alias<Aliased>>& r) noexcept(/*see below*/);
+    const One& l, const Unit_alias<Alias, Aliased>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator/(
-    const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator/(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator%(
-    const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator%(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 
 // \[unit.alias.cmp], comparisons
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator==(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator!=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator<(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator<=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 
 // \[unit.alias.io], I/O
 
 template <class... T, template <class> class Alias, class Aliased>
 std::basic_ostream<T...>& operator<<(
-    std::basic_ostream<T...>& os, const Unit_alias<Alias<Aliased>>& a);
+    std::basic_ostream<T...>& os, const Unit_alias<Alias, Aliased>& a);
 
 } // namespace mia
 
@@ -139,14 +137,14 @@ namespace ranges {
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 struct common_type<
-    mia::Unit_alias<Alias<Aliased1>>, mia::Unit_alias<Alias<Aliased2>>>;
+    mia::Unit_alias<Alias, Aliased1>, mia::Unit_alias<Alias, Aliased2>>;
 
 } // namespace ranges
 
 namespace std {
 
 template <template <class> class Alias, class Aliased>
-struct hash<mia::Unit_alias<Alias<Aliased>>>;
+struct hash<mia::Unit_alias<Alias, Aliased>>;
 
 } // namespace std
 ```
@@ -216,7 +214,7 @@ _Returns:_ `Pixels<int>{gsl::narrow_cast<int>(px)}`.
 ### Overview \[unit.alias.overview]
 
 The following subclauses describe
-`Unit_alias<Alias<Aliased>>`,
+`Unit_alias<Alias, Aliased>`,
 a [strong type alias] of `Aliased`.
 It holds an object of the aliased type
 and wraps its `WeakQuantityWith` interface.
@@ -230,11 +228,8 @@ the related strong type aliases.
 ```C++
 namespace mia {
 
-template <class Derived>
-class Unit_alias; /*undefined*/
-
 template <template <class> class Alias, class Aliased>
-class Unit_alias<Alias<Aliased>> {
+class Unit_alias {
 public:
     using aliased = Aliased;
     using derived = Alias<aliased>;
@@ -245,7 +240,7 @@ public:
     explicit constexpr Unit_alias(const Aliased2& a) noexcept(/*see below*/);
     template <class Aliased2>
     EXPLICIT constexpr Unit_alias(
-        const Unit_alias<Alias<Aliased2>>& a) noexcept(/*see below*/);
+        const Unit_alias<Alias, Aliased2>& a) noexcept(/*see below*/);
     ~Unit_alias()                 = default;
     Unit_alias(const Unit_alias&) = default;
     Unit_alias& operator=(const Unit_alias&) = default;
@@ -260,10 +255,10 @@ public:
     constexpr derived operator--(int) noexcept(/*see below*/);
     template <class Aliased2>
     constexpr derived& operator+=(
-        const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+        const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
     template <class Aliased2>
     constexpr derived& operator-=(
-        const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+        const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
     template <class One>
     constexpr derived& operator*=(const One& r) noexcept(/*see below*/);
     template <class One>
@@ -272,7 +267,7 @@ public:
     constexpr derived& operator%=(const One& r) noexcept(/*see below*/);
     template <class Aliased2>
     constexpr derived& operator%=(
-        const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+        const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 
 private:
     aliased unaliased_; /*exposition only*/
@@ -284,7 +279,7 @@ private:
 `WeakQuantity<Aliased>()`
 shall be `true`.
 
-`ranges::DerivedFrom<Alias<Aliased>, Unit_alias<Alias<Aliased>>>()`
+`ranges::DerivedFrom<Alias<Aliased>, Unit_alias<Alias, Aliased>>()`
 shall be `true`,
 no diagnostic required.
 
@@ -319,7 +314,7 @@ unless `ranges::Constructible<aliased, const Aliased2&>()` is `true`.
 
 ```C++
 template <class Aliased2>
-EXPLICIT constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
+EXPLICIT constexpr Unit_alias(const Unit_alias<Alias, Aliased2>& a) noexcept(
     /*see below*/);
 ```
 _Effects:_ Initializes `unaliased_` with `a.unaliased()`.
@@ -381,7 +376,7 @@ _Remarks:_ The expression inside `noexcept` is equivalent to
 
 ```C++
 template <class Aliased2>
-constexpr derived& operator+=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
+constexpr derived& operator+=(const Unit_alias<Alias, Aliased2>& r) noexcept(
     /*see below*/);
 ```
 _Effects:_ Equivalent to: `unaliased_ += r.unaliased()`.
@@ -395,7 +390,7 @@ unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
 
 ```C++
 template <class Aliased2>
-constexpr derived& operator-=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
+constexpr derived& operator-=(const Unit_alias<Alias, Aliased2>& r) noexcept(
     /*see below*/);
 ```
 _Effects:_ Equivalent to: `unaliased_ -= r.unaliased()`.
@@ -448,7 +443,7 @@ unless `QuantityOneWith<One, aliased>()` is `true`.
 
 ```C++
 template <class Aliased2>
-constexpr derived& operator%=(const Unit_alias<Alias<Aliased2>>& r) noexcept(
+constexpr derived& operator%=(const Unit_alias<Alias, Aliased2>& r) noexcept(
     /*see below*/);
 ```
 _Effects:_ Equivalent to: `unaliased_ %= r.unaliased()`.
@@ -464,7 +459,7 @@ unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
 
 ```C++
 template <template <class> class Alias, class Aliased>
-constexpr auto operator+(const Unit_alias<Alias<Aliased>>& a) noexcept(
+constexpr auto operator+(const Unit_alias<Alias, Aliased>& a) noexcept(
     /*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(+a.unaliased());`
@@ -474,7 +469,7 @@ _Remarks:_ The expression inside `noexcept` is equivalent to
 
 ```C++
 template <template <class> class Alias, class Aliased>
-constexpr auto operator-(const Unit_alias<Alias<Aliased>>& a) noexcept(
+constexpr auto operator-(const Unit_alias<Alias, Aliased>& a) noexcept(
     /*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(-a.unaliased());`
@@ -485,8 +480,8 @@ _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator+(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l.unaliased() + r.unaliased());`
 
@@ -498,8 +493,8 @@ unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator-(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l.unaliased() - r.unaliased());`
 
@@ -511,7 +506,7 @@ unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
-    const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l.unaliased() * r);`
 
@@ -523,7 +518,7 @@ unless `QuantityOneWith<One, Aliased>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
-    const One& l, const Unit_alias<Alias<Aliased>>& r) noexcept(/*see below*/);
+    const One& l, const Unit_alias<Alias, Aliased>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l * r.unaliased());`
 
@@ -535,7 +530,7 @@ unless `QuantityOneWith<One, Aliased>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator/(
-    const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l.unaliased() / r);`
 
@@ -547,8 +542,8 @@ unless `QuantityOneWith<One, Aliased>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator/(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return l.unaliased() / r.unaliased();`
 
@@ -560,7 +555,7 @@ unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator%(
-    const Unit_alias<Alias<Aliased>>& l, const One& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l.unaliased() % r);`
 
@@ -572,8 +567,8 @@ unless `QuantityOneWith<One, Aliased>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator%(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return Alias(l.unaliased() % r.unaliased());`
 
@@ -587,8 +582,8 @@ unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator==(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return l.unaliased() == r.unaliased();`
 
@@ -600,16 +595,16 @@ unless `ranges::EqualityComparable<Aliased1, Aliased2>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator!=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return !(l == r);`
 
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator<(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return l.unaliased() < r.unaliased();`
 
@@ -621,24 +616,24 @@ unless `ranges::TotallyOrdered<Aliased1, Aliased2>()` is `true`.
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return r < l;`
 
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator<=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return !(r < l);`
 
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(/*see below*/);
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return !(l < r);`
 
@@ -647,7 +642,7 @@ _Effects:_ Equivalent to: `return !(l < r);`
 ```C++
 template <class... T, template <class> class Alias, class Aliased>
 std::basic_ostream<T...>& operator<<(
-    std::basic_ostream<T...>& os, const Unit_alias<Alias<Aliased>>& a);
+    std::basic_ostream<T...>& os, const Unit_alias<Alias, Aliased>& a);
 ```
 
 _Effects:_ Equivalent to: `return os << a.unaliased();`
@@ -659,9 +654,9 @@ namespace ranges {
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 struct common_type<
-    mia::Unit_alias<Alias<Aliased1>>, mia::Unit_alias<Alias<Aliased2>>> {
+    mia::Unit_alias<Alias, Aliased1>, mia::Unit_alias<Alias, Aliased2>> {
     using type =
-        mia::Unit_alias<Alias<ranges::common_type_t<Aliased1, Aliased2>>>;
+        mia::Unit_alias<Alias, ranges::common_type_t<Aliased1, Aliased2>>;
 };
 
 } // namespace ranges
@@ -671,7 +666,7 @@ struct common_type<
 namespace std {
 
 template <template <class> class Alias, class Aliased>
-struct hash<mia::Unit_alias<Alias<Aliased>>>;
+struct hash<mia::Unit_alias<Alias, Aliased>>;
 
 } // namespace std
 ```

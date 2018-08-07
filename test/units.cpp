@@ -129,9 +129,9 @@ void runtime_test_pixels()
 // \[unit.alias]
 
 template <class Qty>
-class Radius : public mia::Unit_alias<Radius<Qty>> {
+class Radius : public mia::Unit_alias<Radius, Qty> {
 public:
-    using mia::Unit_alias<Radius<Qty>>::Unit_alias;
+    using mia::Unit_alias<Radius, Qty>::Unit_alias;
 };
 
 template <class Qty>

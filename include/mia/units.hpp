@@ -52,11 +52,8 @@ inline namespace literals {
     } // namespace pixels_literals
 } // namespace literals
 
-template <class Derived>
-class Unit_alias;
-
 template <template <class> class Alias, class Aliased>
-class Unit_alias<Alias<Aliased>> {
+class Unit_alias {
 public:
     static_assert(WeakQuantity<Aliased>());
 
@@ -81,7 +78,7 @@ public:
         class Aliased2, CONCEPT_REQUIRES_(
                             ranges::Constructible<aliased, Aliased2>() &&
                             !ranges::ConvertibleTo<Aliased2, aliased>())>
-    explicit constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
+    explicit constexpr Unit_alias(const Unit_alias<Alias, Aliased2>& a) noexcept(
         noexcept(a.unaliased()) &&
         std::is_nothrow_constructible_v<aliased, Aliased2>)
       : unaliased_(a.unaliased())
@@ -92,7 +89,7 @@ public:
         class Aliased2, CONCEPT_REQUIRES_(
                             ranges::Constructible<aliased, Aliased2>() &&
                             ranges::ConvertibleTo<Aliased2, aliased>())>
-    constexpr Unit_alias(const Unit_alias<Alias<Aliased2>>& a) noexcept(
+    constexpr Unit_alias(const Unit_alias<Alias, Aliased2>& a) noexcept(
         noexcept(a.unaliased()) &&
         std::is_nothrow_constructible_v<aliased, Aliased2>)
       : unaliased_(a.unaliased())
@@ -135,7 +132,7 @@ public:
         class Aliased2,
         CONCEPT_REQUIRES_(WeakQuantityWith<aliased, Aliased2>())>
     constexpr derived& operator+=(
-        const Unit_alias<Alias<Aliased2>>&
+        const Unit_alias<Alias, Aliased2>&
             r) noexcept(noexcept(std::declval<aliased&>() += r.unaliased()))
     {
         unaliased_ += r.unaliased();
@@ -146,7 +143,7 @@ public:
         class Aliased2,
         CONCEPT_REQUIRES_(WeakQuantityWith<aliased, Aliased2>())>
     constexpr derived& operator-=(
-        const Unit_alias<Alias<Aliased2>>&
+        const Unit_alias<Alias, Aliased2>&
             r) noexcept(noexcept(std::declval<aliased&>() -= r.unaliased()))
     {
         unaliased_ -= r.unaliased();
@@ -181,7 +178,7 @@ public:
         class Aliased2,
         CONCEPT_REQUIRES_(WeakQuantityWith<aliased, Aliased2>())>
     constexpr derived& operator%=(
-        const Unit_alias<Alias<Aliased2>>&
+        const Unit_alias<Alias, Aliased2>&
             r) noexcept(noexcept(std::declval<aliased&>() %= r.unaliased()))
     {
         unaliased_ %= r.unaliased();
@@ -198,14 +195,14 @@ private:
 };
 
 template <template <class> class Alias, class Aliased>
-constexpr auto operator+(const Unit_alias<Alias<Aliased>>& a) noexcept(
+constexpr auto operator+(const Unit_alias<Alias, Aliased>& a) noexcept(
     noexcept(Alias(+a.unaliased())))
 {
     return Alias(+a.unaliased());
 }
 
 template <template <class> class Alias, class Aliased>
-constexpr auto operator-(const Unit_alias<Alias<Aliased>>& a) noexcept(
+constexpr auto operator-(const Unit_alias<Alias, Aliased>& a) noexcept(
     noexcept(Alias(-a.unaliased())))
 {
     return Alias(-a.unaliased());
@@ -215,8 +212,8 @@ template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
 constexpr auto operator+(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>&
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>&
         r) noexcept(noexcept(Alias(l.unaliased() + r.unaliased())))
 {
     return Alias(l.unaliased() + r.unaliased());
@@ -226,8 +223,8 @@ template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
 constexpr auto operator-(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>&
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>&
         r) noexcept(noexcept(Alias(l.unaliased() - r.unaliased())))
 {
     return Alias(l.unaliased() - r.unaliased());
@@ -237,7 +234,7 @@ template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
 constexpr auto operator*(
-    const Unit_alias<Alias<Aliased>>& l,
+    const Unit_alias<Alias, Aliased>& l,
     const One& r) noexcept(noexcept(Alias(l.unaliased() * r)))
 {
     return Alias(l.unaliased() * r);
@@ -247,7 +244,7 @@ template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
 constexpr auto operator*(
-    const One& l, const Unit_alias<Alias<Aliased>>&
+    const One& l, const Unit_alias<Alias, Aliased>&
                       r) noexcept(noexcept(Alias(l* r.unaliased())))
 {
     return Alias(l * r.unaliased());
@@ -257,7 +254,7 @@ template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
 constexpr auto operator/(
-    const Unit_alias<Alias<Aliased>>& l,
+    const Unit_alias<Alias, Aliased>& l,
     const One& r) noexcept(noexcept(Alias(l.unaliased() / r)))
 {
     return Alias(l.unaliased() / r);
@@ -267,8 +264,8 @@ template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
 constexpr auto operator/(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>&
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>&
         r) noexcept(noexcept(l.unaliased() / r.unaliased()))
 {
     return l.unaliased() / r.unaliased();
@@ -278,7 +275,7 @@ template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
 constexpr auto operator%(
-    const Unit_alias<Alias<Aliased>>& l,
+    const Unit_alias<Alias, Aliased>& l,
     const One& r) noexcept(noexcept(Alias(l.unaliased() % r)))
 {
     return Alias(l.unaliased() % r);
@@ -288,8 +285,8 @@ template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
 constexpr auto operator%(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>&
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>&
         r) noexcept(noexcept(Alias(l.unaliased() % r.unaliased())))
 {
     return Alias(l.unaliased() % r.unaliased());
@@ -299,8 +296,8 @@ template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(ranges::EqualityComparable<Aliased1, Aliased2>())>
 constexpr auto operator==(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>&
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>&
         r) noexcept(noexcept(l.unaliased() == r.unaliased()))
 {
     return l.unaliased() == r.unaliased();
@@ -308,8 +305,8 @@ constexpr auto operator==(
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator!=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(noexcept(!(l == r)))
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(noexcept(!(l == r)))
     -> decltype(!(l == r))
 {
     return !(l == r);
@@ -319,8 +316,8 @@ template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(ranges::TotallyOrdered<Aliased1, Aliased2>())>
 constexpr auto operator<(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>&
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>&
         r) noexcept(noexcept(l.unaliased() < r.unaliased()))
 {
     return l.unaliased() < r.unaliased();
@@ -328,8 +325,8 @@ constexpr auto operator<(
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(noexcept(r < l))
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(noexcept(r < l))
     -> decltype(r < l)
 {
     return r < l;
@@ -337,8 +334,8 @@ constexpr auto operator>(
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator<=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(noexcept(!(r < l)))
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(noexcept(!(r < l)))
     -> decltype(!(r < l))
 {
     return !(r < l);
@@ -346,8 +343,8 @@ constexpr auto operator<=(
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>=(
-    const Unit_alias<Alias<Aliased1>>& l,
-    const Unit_alias<Alias<Aliased2>>& r) noexcept(noexcept(!(l < r)))
+    const Unit_alias<Alias, Aliased1>& l,
+    const Unit_alias<Alias, Aliased2>& r) noexcept(noexcept(!(l < r)))
     -> decltype(!(l < r))
 {
     return !(l < r);
@@ -355,7 +352,7 @@ constexpr auto operator>=(
 
 template <class... T, template <class> class Alias, class Aliased>
 std::basic_ostream<T...>& operator<<(
-    std::basic_ostream<T...>& os, const Unit_alias<Alias<Aliased>>& a)
+    std::basic_ostream<T...>& os, const Unit_alias<Alias, Aliased>& a)
 {
     return os << a.unaliased();
 }
@@ -366,8 +363,8 @@ namespace ranges {
 
 template <template <class> class Alias, class Aliased1, class Aliased2>
 struct common_type<
-    mia::Unit_alias<Alias<Aliased1>>, mia::Unit_alias<Alias<Aliased2>>> {
-    using type = mia::Unit_alias<Alias<common_type_t<Aliased1, Aliased2>>>;
+    mia::Unit_alias<Alias, Aliased1>, mia::Unit_alias<Alias, Aliased2>> {
+    using type = mia::Unit_alias<Alias, common_type_t<Aliased1, Aliased2>>;
 };
 
 } // namespace ranges
@@ -375,9 +372,9 @@ struct common_type<
 namespace std {
 
 template <template <class> class Alias, class Aliased>
-struct hash<mia::Unit_alias<Alias<Aliased>>> : private hash<Aliased> {
+struct hash<mia::Unit_alias<Alias, Aliased>> : private hash<Aliased> {
     constexpr auto operator()(
-        const mia::Unit_alias<Alias<Aliased>>&
+        const mia::Unit_alias<Alias, Aliased>&
             a) noexcept(noexcept(hash<Aliased>{}(a.unaliased())))
         -> decltype(hash<Aliased>{}(a.unaliased()))
     {
