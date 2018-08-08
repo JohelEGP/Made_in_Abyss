@@ -283,11 +283,6 @@ shall be `true`.
 shall be `true`,
 no diagnostic required.
 
-`Alias{E}`,
-where `E` has value type `AliasedE`,
-shall have type `Alias<AliasedE>`,
-no diagnostic required.
-
 `ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
 shall be
 `Alias<ranges::common_type_t<Aliased1, Aliased2>>`,
@@ -462,20 +457,30 @@ template <template <class> class Alias, class Aliased>
 constexpr auto operator+(const Unit_alias<Alias, Aliased>& a) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(+a.unaliased());`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(+a.unaliased())>(+a.unaliased());
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(+a.unaliased()))`.
+```C++
+noexcept(Alias<decltype(+a.unaliased())>(+a.unaliased()))
+```
 
 ```C++
 template <template <class> class Alias, class Aliased>
 constexpr auto operator-(const Unit_alias<Alias, Aliased>& a) noexcept(
     /*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(-a.unaliased());`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(-a.unaliased())>(-a.unaliased());
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(-a.unaliased()))`.
+```C++
+noexcept(Alias<decltype(-a.unaliased())>(-a.unaliased()))
+```
 
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
@@ -483,10 +488,17 @@ constexpr auto operator+(
     const Unit_alias<Alias, Aliased1>& l,
     const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l.unaliased() + r.unaliased());`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l.unaliased() + r.unaliased())>(
+    l.unaliased() + r.unaliased());
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l.unaliased() + r.unaliased()))`.
+```C++
+noexcept(Alias<decltype(l.unaliased() + r.unaliased())>(
+    l.unaliased() + r.unaliased()))
+```
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 
@@ -496,10 +508,17 @@ constexpr auto operator-(
     const Unit_alias<Alias, Aliased1>& l,
     const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l.unaliased() - r.unaliased());`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l.unaliased() - r.unaliased())>(
+    l.unaliased() - r.unaliased());
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l.unaliased() - r.unaliased()))`.
+```C++
+noexcept(Alias<decltype(l.unaliased() - r.unaliased())>(
+    l.unaliased() - r.unaliased()))
+```
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 
@@ -508,10 +527,15 @@ template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
     const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l.unaliased() * r);`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l.unaliased() * r)>(l.unaliased() * r);
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l.unaliased() * r))`.
+```C++
+noexcept<decltype(l.unaliased() * r)>(Alias(l.unaliased() * r))
+```
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, Aliased>()` is `true`.
 
@@ -520,10 +544,15 @@ template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator*(
     const One& l, const Unit_alias<Alias, Aliased>& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l * r.unaliased());`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l * r.unaliased())>(l * r.unaliased());
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l * r.unaliased()))`.
+```C++
+noexcept(Alias<decltype(l * r.unaliased())>(l * r.unaliased()))
+```
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, Aliased>()` is `true`.
 
@@ -532,10 +561,15 @@ template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator/(
     const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l.unaliased() / r);`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l.unaliased() / r)>(l.unaliased() / r);
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l.unaliased() / r))`.
+```C++
+noexcept(Alias<decltype(l.unaliased() / r)>(l.unaliased() / r))
+```
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, Aliased>()` is `true`.
 
@@ -557,10 +591,15 @@ template <template <class> class Alias, class Aliased, class One>
 constexpr auto operator%(
     const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l.unaliased() % r);`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l.unaliased() % r)>(l.unaliased() % r);
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l.unaliased() % r))`.
+```C++
+noexcept(Alias<decltype(l.unaliased() % r)>(l.unaliased() % r))
+```
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, Aliased>()` is `true`.
 
@@ -570,10 +609,17 @@ constexpr auto operator%(
     const Unit_alias<Alias, Aliased1>& l,
     const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
-_Effects:_ Equivalent to: `return Alias(l.unaliased() % r.unaliased());`
+_Effects:_ Equivalent to:
+```C++
+return Alias<decltype(l.unaliased() % r.unaliased())>(
+    l.unaliased() % r.unaliased());
+```
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
-`noexcept(Alias(l.unaliased() % r.unaliased()))`.
+```C++
+noexcept(Alias<decltype(l.unaliased() % r.unaliased())>(
+    l.unaliased() % r.unaliased()))
+```
 This function shall not participate in overload resolution
 unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 

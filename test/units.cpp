@@ -274,8 +274,148 @@ void runtime_test_radius()
     assert((fmt::format("{}", Radius{20_px})) == "20 px");
 }
 
-constexpr auto test_unit_alias         = test_radius;
-constexpr auto runtime_test_unit_alias = runtime_test_radius;
+template <class Qty>
+class Perimeter : public mia::Unit_alias<Perimeter, Qty> {
+public:
+    using mia::Unit_alias<Perimeter, Qty>::Unit_alias;
+};
+
+} // namespace
+
+namespace ranges {
+
+template <class Qty1, class Qty2>
+struct common_type<Perimeter<Qty1>, Perimeter<Qty2>> {
+    using type = Perimeter<common_type_t<Qty1, Qty2>>;
+};
+
+} // namespace ranges
+
+namespace {
+
+constexpr void test_perimeter()
+{
+    static_assert(std::is_trivial_v<Perimeter<int>>);
+    static_assert(std::is_standard_layout_v<Perimeter<double>>);
+
+    static_assert(ranges::Regular<Perimeter<int>>());
+    static_assert(mia::WeakQuantity<Perimeter<double>>());
+    static_assert(mia::WeakQuantityWith<Perimeter<int>, Perimeter<double>>());
+    static_assert(mia::QuantityOneWith<int, Perimeter<double>>());
+    static_assert(!mia::QuantityOne<Perimeter<double>>());
+
+    // `mia::WeakQuantity` semantics.
+    {
+        int i{42};
+        Perimeter<int> p{42};
+
+        auto test_cmp = [=](auto op) {
+            assert(op(0, i) == op(Perimeter<int>{0}, p));
+            assert(op(i, i) == op(p, p));
+            assert(op(i, 0) == op(p, Perimeter<int>{0}));
+        };
+
+        test_cmp(std::less{});
+        test_cmp(std::less_equal{});
+        test_cmp(std::greater{});
+        test_cmp(std::greater_equal{});
+
+        assert(+i == (+p).unaliased());
+        assert(-i == (-p).unaliased());
+        assert(++i == (++p).unaliased());
+        assert(--i == (--p).unaliased());
+        assert(i++ == p++.unaliased());
+        assert(i-- == p--.unaliased());
+        assert(i + i == (p + p).unaliased());
+        assert(i - i == (p - p).unaliased());
+        assert(i * 42 == (p * 42).unaliased());
+        assert(42 * i == (42 * p).unaliased());
+        assert(i / 42 == (p / 42).unaliased());
+        assert(i / i == p / p);
+        assert(i % 42 == (p % 42).unaliased());
+        assert(i % i == (p % p).unaliased());
+        assert((i += 42) == (p += Perimeter<int>{42}).unaliased());
+        assert((i -= 42) == (p -= Perimeter<int>{42}).unaliased());
+        assert((i *= 42) == (p *= 42).unaliased());
+        assert((i /= 42) == (p /= 42).unaliased());
+        assert((i %= 42) == (p %= 42).unaliased());
+        assert((i %= 42) == (p %= Perimeter<int>{42}).unaliased());
+
+        assert(&p == &++p);
+        assert(&p == &--p);
+        assert(&p == &(p += Perimeter<int>{0}));
+        assert(&p == &(p -= Perimeter<int>{0}));
+        assert(&p == &(p *= 1));
+        assert(&p == &(p /= 1));
+        assert(&p == &(p %= 1));
+        assert(&p == &(p %= Perimeter<int>{1}));
+    }
+    // `mia::WeakQuantityWith` semantics.
+    {
+        Perimeter<int> i{42};
+        Perimeter<long> l{i};
+        i = l;
+        l = i;
+
+        auto test_cmp = [=](auto op) {
+            assert(op(0, 42) == op(Perimeter<int>{0}, i));
+            assert(op(42, 42) == op(i, l));
+            assert(op(42, 0) == op(i, Perimeter<int>{0}));
+        };
+
+        test_cmp(std::less{});
+        test_cmp(std::less_equal{});
+        test_cmp(std::greater{});
+        test_cmp(std::greater_equal{});
+
+        assert(42 + 42 == (i + l).unaliased());
+        assert(42 + 42 == (l + i).unaliased());
+        assert(42 - 42 == (i - l).unaliased());
+        assert(42 - 42 == (l - i).unaliased());
+        assert(42 * 42 == (i * 42L).unaliased());
+        assert(42 * 42 == (42L * i).unaliased());
+        assert(42 * 42 == (l * 42).unaliased());
+        assert(42 * 42 == (42 * l).unaliased());
+        assert(42 / 42 == (i / 42L).unaliased());
+        assert(42 / 42 == (l / 42).unaliased());
+        assert(42 / 42 == i / l);
+        assert(42 / 42 == l / i);
+        assert(42 % 42 == (i % 42L).unaliased());
+        assert(42 % 42 == (l % 42).unaliased());
+        assert(42 % 42 == (i % l).unaliased());
+        assert(42 % 42 == (l % i).unaliased());
+        assert(42 + 42 == (i += l).unaliased());
+        assert(42 + 84 == (l += i).unaliased());
+        assert(84 - 126 == (i -= l).unaliased());
+        assert(126 + 42 == (l -= i).unaliased());
+        assert(-42 * -2 == (i *= -2).unaliased());
+        assert(168 * 1 == (l *= 1).unaliased());
+        assert(84 / 2 == (i /= 2L).unaliased());
+        assert(168 / 4 == (l /= 4).unaliased());
+        assert(42 % 42 == (i %= 42L).unaliased());
+        assert(42 % 42 == (l %= 42).unaliased());
+        assert(42 % 42 == (i %= Perimeter<long>{42}).unaliased());
+        assert(42 % 42 == (l %= Perimeter<int>{42}).unaliased());
+    }
+}
+
+void runtime_test_perimeter()
+{
+    using namespace mia::pixels_literals;
+    assert((fmt::format("{}", Perimeter<int>{20})) == "20");
+}
+
+constexpr void test_unit_alias()
+{
+    test_radius();
+    test_perimeter();
+}
+
+void runtime_test_unit_alias()
+{
+    runtime_test_radius();
+    runtime_test_perimeter();
+}
 
 constexpr int test()
 {

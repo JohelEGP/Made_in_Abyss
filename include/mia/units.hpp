@@ -196,68 +196,70 @@ private:
 
 template <template <class> class Alias, class Aliased>
 constexpr auto operator+(const Unit_alias<Alias, Aliased>& a) noexcept(
-    noexcept(Alias(+a.unaliased())))
+    noexcept(Alias<decltype(+a.unaliased())>(+a.unaliased())))
 {
-    return Alias(+a.unaliased());
+    return Alias<decltype(+a.unaliased())>(+a.unaliased());
 }
 
 template <template <class> class Alias, class Aliased>
 constexpr auto operator-(const Unit_alias<Alias, Aliased>& a) noexcept(
-    noexcept(Alias(-a.unaliased())))
+    noexcept(Alias<decltype(-a.unaliased())>(-a.unaliased())))
 {
-    return Alias(-a.unaliased());
+    return Alias<decltype(-a.unaliased())>(-a.unaliased());
 }
 
 template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
-constexpr auto operator+(
-    const Unit_alias<Alias, Aliased1>& l,
-    const Unit_alias<Alias, Aliased2>&
-        r) noexcept(noexcept(Alias(l.unaliased() + r.unaliased())))
+constexpr auto
+operator+(const Unit_alias<Alias, Aliased1>& l, const Unit_alias<Alias, Aliased2>& r) noexcept(
+    noexcept(Alias<decltype(l.unaliased() + r.unaliased())>(
+        l.unaliased() + r.unaliased())))
 {
-    return Alias(l.unaliased() + r.unaliased());
+    return Alias<decltype(l.unaliased() + r.unaliased())>(
+        l.unaliased() + r.unaliased());
 }
 
 template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
-constexpr auto operator-(
-    const Unit_alias<Alias, Aliased1>& l,
-    const Unit_alias<Alias, Aliased2>&
-        r) noexcept(noexcept(Alias(l.unaliased() - r.unaliased())))
+constexpr auto
+operator-(const Unit_alias<Alias, Aliased1>& l, const Unit_alias<Alias, Aliased2>& r) noexcept(
+    noexcept(Alias<decltype(l.unaliased() - r.unaliased())>(
+        l.unaliased() - r.unaliased())))
 {
-    return Alias(l.unaliased() - r.unaliased());
+    return Alias<decltype(l.unaliased() - r.unaliased())>(
+        l.unaliased() - r.unaliased());
 }
 
 template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
-constexpr auto operator*(
-    const Unit_alias<Alias, Aliased>& l,
-    const One& r) noexcept(noexcept(Alias(l.unaliased() * r)))
+constexpr auto
+operator*(const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(
+    noexcept(Alias<decltype(l.unaliased() * r)>(l.unaliased() * r)))
 {
-    return Alias(l.unaliased() * r);
+    return Alias<decltype(l.unaliased() * r)>(l.unaliased() * r);
 }
 
 template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
-constexpr auto operator*(
-    const One& l, const Unit_alias<Alias, Aliased>&
-                      r) noexcept(noexcept(Alias(l* r.unaliased())))
+constexpr auto
+operator*(const One& l, const Unit_alias<Alias, Aliased>& r) noexcept(
+    noexcept(Alias<decltype(l * r.unaliased())>(l* r.unaliased())))
 {
-    return Alias(l * r.unaliased());
+    return Alias<decltype(l * r.unaliased())>(l * r.unaliased());
 }
 
 template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
-constexpr auto operator/(
-    const Unit_alias<Alias, Aliased>& l,
-    const One& r) noexcept(noexcept(Alias(l.unaliased() / r)))
+constexpr auto
+operator/(const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(
+    noexcept(Alias<decltype(l.unaliased() / r)>(l.unaliased() / r)))
 {
-    return Alias(l.unaliased() / r);
+    return Alias<decltype(l.unaliased() / r)>(l.unaliased() / r);
 }
 
 template <
@@ -274,22 +276,23 @@ constexpr auto operator/(
 template <
     template <class> class Alias, class Aliased, class One,
     CONCEPT_REQUIRES_(QuantityOneWith<One, Aliased>())>
-constexpr auto operator%(
-    const Unit_alias<Alias, Aliased>& l,
-    const One& r) noexcept(noexcept(Alias(l.unaliased() % r)))
+constexpr auto
+operator%(const Unit_alias<Alias, Aliased>& l, const One& r) noexcept(
+    noexcept(Alias<decltype(l.unaliased() % r)>(l.unaliased() % r)))
 {
-    return Alias(l.unaliased() % r);
+    return Alias<decltype(l.unaliased() % r)>(l.unaliased() % r);
 }
 
 template <
     template <class> class Alias, class Aliased1, class Aliased2,
     CONCEPT_REQUIRES_(WeakQuantityWith<Aliased1, Aliased2>())>
-constexpr auto operator%(
-    const Unit_alias<Alias, Aliased1>& l,
-    const Unit_alias<Alias, Aliased2>&
-        r) noexcept(noexcept(Alias(l.unaliased() % r.unaliased())))
+constexpr auto
+operator%(const Unit_alias<Alias, Aliased1>& l, const Unit_alias<Alias, Aliased2>& r) noexcept(
+    noexcept(Alias<decltype(l.unaliased() % r.unaliased())>(
+        l.unaliased() % r.unaliased())))
 {
-    return Alias(l.unaliased() % r.unaliased());
+    return Alias<decltype(l.unaliased() % r.unaliased())>(
+        l.unaliased() % r.unaliased());
 }
 
 template <
