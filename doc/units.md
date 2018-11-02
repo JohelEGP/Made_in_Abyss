@@ -534,7 +534,7 @@ return Alias<decltype(l.unaliased() * r)>(l.unaliased() * r);
 
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
-noexcept<decltype(l.unaliased() * r)>(Alias(l.unaliased() * r))
+noexcept(Alias<decltype(l.unaliased() * r)>(Alias(l.unaliased() * r))
 ```
 This function shall not participate in overload resolution
 unless `QuantityOneWith<One, Aliased>()` is `true`.
