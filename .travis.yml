@@ -30,7 +30,7 @@ matrix:
     - MATRIX_EVAL="CXX=clang++-6.0"
   - os: linux
     env:
-    - MATRIX_EVAL="CXX=clang++ && LIBCXX_VERSION=6.0.0"
+    - MATRIX_EVAL="CXX=clang++ && LIBCXX_VERSION=6.0.0 && CC=clang"
   - os: linux
     addons:
       apt:
@@ -44,13 +44,14 @@ matrix:
     - MATRIX_EVAL="CXX=clang++"
   - os: linux
     env:
-    - MATRIX_EVAL="CXX=clang++ && LIBCXX_VERSION=7.0.0"
+    - MATRIX_EVAL="CXX=clang++ && LIBCXX_VERSION=7.0.0 && CC=clang"
   - os: osx
     compiler: clang
     addons:
       homebrew:
         packages:
         - cmake
+        - llvm
         update: true
 
 before_script:
