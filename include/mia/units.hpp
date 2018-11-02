@@ -39,14 +39,14 @@ inline namespace display_length { //
 inline namespace literals {
     inline namespace pixels_literals { //
 
-        constexpr Pixels<double> operator""_px(long double px) noexcept
-        {
-            return Pixels<double>{gsl::narrow_cast<double>(px)};
-        }
-
         constexpr Pixels<int> operator""_px(unsigned long long px) noexcept
         {
             return Pixels<int>{gsl::narrow_cast<int>(px)};
+        }
+
+        constexpr Pixels<double> operator""_px(long double px) noexcept
+        {
+            return Pixels<double>{gsl::narrow_cast<double>(px)};
         }
 
     } // namespace pixels_literals
