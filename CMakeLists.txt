@@ -6,6 +6,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/)
 include(mia_find_dependencies)
 
 add_library(mia INTERFACE)
+add_library(mia::mia ALIAS mia)
 target_include_directories(mia INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_features(mia INTERFACE cxx_std_17)
 target_link_libraries(mia INTERFACE
@@ -16,7 +17,7 @@ target_link_libraries(mia INTERFACE
     units)
 
 add_executable(Made_in_Abyss src/mia.cpp)
-target_link_libraries(Made_in_Abyss PRIVATE mia)
+target_link_libraries(Made_in_Abyss PRIVATE mia::mia)
 
 include(CTest)
 include(mia_add_tests)

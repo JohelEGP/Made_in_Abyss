@@ -5,7 +5,7 @@ endif()
 function(mia_add_test name)
     add_executable(mia_test_${name} test/${name}.cpp)
     target_compile_options(mia_test_${name} PRIVATE ${ARGN})
-    target_link_libraries(mia_test_${name} PRIVATE mia)
+    target_link_libraries(mia_test_${name} PRIVATE mia::mia)
     add_test(mia_test_${name} mia_test_${name})
 endfunction()
 
