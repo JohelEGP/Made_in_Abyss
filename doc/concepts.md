@@ -88,7 +88,7 @@ namespace mia::concepts {
 struct WeakQuantity {
     template <class T>
     auto requires_(const T& c, T& l) -> decltype(ranges::concepts::valid_expr(
-        model_of<ranges::concepts::Copyable, T>(),
+        model_of<ranges::concepts::Regular, T>(),
         model_of<ranges::concepts::TotallyOrdered, T>(),
         model_of<ranges::concepts::ConvertibleTo, T>(+c),
         model_of<ranges::concepts::ConvertibleTo, T>(-c),
