@@ -10,9 +10,9 @@
 #include <gsl/string_span>
 #include <range/v3/utility/common_type.hpp>
 #include <range/v3/utility/concepts.hpp>
+#include <units.h>
 #include <jegp/utility.hpp>
 #include <mia/concepts.hpp>
-#include <mia/ext/units.hpp>
 
 namespace mia {
 
@@ -31,7 +31,7 @@ inline namespace display_length { //
 
     template <class Arithmetic>
     using Pixels = units::unit<
-        units::unit_conversion<std::ratio<1>, dimension::Display_length>,
+        units::conversion_factor<std::ratio<1>, dimension::Display_length>,
         Arithmetic>;
 
 } // namespace display_length

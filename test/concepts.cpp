@@ -1,7 +1,7 @@
 #include <ratio>
+#include <units.h>
 #include <mia/concepts.hpp>
 #include <mia/ext/std/chrono.hpp>
-#include <mia/ext/units.hpp>
 
 namespace {
 
@@ -48,11 +48,11 @@ static_assert(mia::WeakQuantity<duration<float, R22>>());
 static_assert(mia::WeakQuantity<duration<double, R22>>());
 static_assert(mia::WeakQuantity<duration<long double, R22>>());
 
-static_assert(mia::WeakQuantity<units::dimensionless>());
+static_assert(mia::WeakQuantity<units::dimensionless<int>>());
 
-static_assert(mia::WeakQuantity<units::length::millimeter_t>());
-static_assert(mia::WeakQuantity<units::length::meter_t>());
-static_assert(mia::WeakQuantity<units::length::kilometer_t>());
+static_assert(mia::WeakQuantity<units::millimeter_t<int>>());
+static_assert(mia::WeakQuantity<units::meter_t<int>>());
+static_assert(mia::WeakQuantity<units::kilometer_t<int>>());
 
 static_assert(mia::WeakQuantityWith<signed char, signed char>());
 static_assert(mia::WeakQuantityWith<signed char, int>());
@@ -250,14 +250,14 @@ static_assert(mia::WeakQuantityWith<duration<unsigned, R22>, duration<long doubl
 static_assert(mia::WeakQuantityWith<duration<unsigned long long, R22>, duration<long double, R22>>());
 static_assert(mia::WeakQuantityWith<duration<unsigned char, R22>, duration<long double, R22>>());
 
-static_assert(mia::WeakQuantityWith<units::dimensionless, units::dimensionless>());
+static_assert(mia::WeakQuantityWith<units::dimensionless<int>, units::dimensionless<int>>());
 
-static_assert(mia::WeakQuantityWith<units::length::millimeter_t, units::length::millimeter_t>());
-static_assert(mia::WeakQuantityWith<units::length::millimeter_t, units::length::meter_t>());
-static_assert(mia::WeakQuantityWith<units::length::meter_t, units::length::meter_t>());
-static_assert(mia::WeakQuantityWith<units::length::meter_t, units::length::kilometer_t>());
-static_assert(mia::WeakQuantityWith<units::length::kilometer_t, units::length::kilometer_t>());
-static_assert(mia::WeakQuantityWith<units::length::millimeter_t, units::length::kilometer_t>());
+static_assert(mia::WeakQuantityWith<units::millimeter_t<int>, units::millimeter_t<int>>());
+static_assert(mia::WeakQuantityWith<units::millimeter_t<int>, units::meter_t<int>>());
+static_assert(mia::WeakQuantityWith<units::meter_t<int>, units::meter_t<int>>());
+static_assert(mia::WeakQuantityWith<units::meter_t<int>, units::kilometer_t<int>>());
+static_assert(mia::WeakQuantityWith<units::kilometer_t<int>, units::kilometer_t<int>>());
+static_assert(mia::WeakQuantityWith<units::millimeter_t<int>, units::kilometer_t<int>>());
 
 static_assert(mia::QuantityOneWith<signed char, signed char>());
 static_assert(mia::QuantityOneWith<signed char, int>());
@@ -529,40 +529,40 @@ static_assert(mia::QuantityOneWith<long double, duration<unsigned char, R22>>())
 static_assert(mia::QuantityOneWith<long double, duration<unsigned, R22>>());
 static_assert(mia::QuantityOneWith<long double, duration<unsigned long long, R22>>());
 
-static_assert(mia::QuantityOneWith<units::dimensionless, units::dimensionless>());
-static_assert(mia::QuantityOneWith<units::dimensionless, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<units::dimensionless, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<units::dimensionless, units::length::kilometer_t>());
+static_assert(mia::QuantityOneWith<units::dimensionless<int>, units::dimensionless<int>>());
+static_assert(mia::QuantityOneWith<units::dimensionless<int>, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<units::dimensionless<int>, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<units::dimensionless<int>, units::kilometer_t<int>>());
 
-static_assert(mia::QuantityOneWith<signed char, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<signed char, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<signed char, units::length::kilometer_t>());
-static_assert(mia::QuantityOneWith<int, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<int, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<int, units::length::kilometer_t>());
-static_assert(mia::QuantityOneWith<long long, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<long long, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<long long, units::length::kilometer_t>());
+static_assert(mia::QuantityOneWith<signed char, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<signed char, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<signed char, units::kilometer_t<int>>());
+static_assert(mia::QuantityOneWith<int, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<int, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<int, units::kilometer_t<int>>());
+static_assert(mia::QuantityOneWith<long long, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<long long, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<long long, units::kilometer_t<int>>());
 
-static_assert(mia::QuantityOneWith<unsigned char, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<unsigned char, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<unsigned char, units::length::kilometer_t>());
-static_assert(mia::QuantityOneWith<unsigned, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<unsigned, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<unsigned, units::length::kilometer_t>());
-static_assert(mia::QuantityOneWith<unsigned long long, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<unsigned long long, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<unsigned long long, units::length::kilometer_t>());
+static_assert(mia::QuantityOneWith<unsigned char, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned char, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned char, units::kilometer_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned, units::kilometer_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned long long, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned long long, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<unsigned long long, units::kilometer_t<int>>());
 
-static_assert(mia::QuantityOneWith<float, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<float, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<float, units::length::kilometer_t>());
-static_assert(mia::QuantityOneWith<double, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<double, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<double, units::length::kilometer_t>());
-static_assert(mia::QuantityOneWith<long double, units::length::millimeter_t>());
-static_assert(mia::QuantityOneWith<long double, units::length::meter_t>());
-static_assert(mia::QuantityOneWith<long double, units::length::kilometer_t>());
+static_assert(mia::QuantityOneWith<float, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<float, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<float, units::kilometer_t<int>>());
+static_assert(mia::QuantityOneWith<double, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<double, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<double, units::kilometer_t<int>>());
+static_assert(mia::QuantityOneWith<long double, units::millimeter_t<int>>());
+static_assert(mia::QuantityOneWith<long double, units::meter_t<int>>());
+static_assert(mia::QuantityOneWith<long double, units::kilometer_t<int>>());
 
 static_assert(mia::QuantityOne<signed char>());
 static_assert(mia::QuantityOne<int>());
@@ -576,7 +576,7 @@ static_assert(mia::QuantityOne<float>());
 static_assert(mia::QuantityOne<double>());
 static_assert(mia::QuantityOne<long double>());
 
-static_assert(mia::QuantityOne<units::dimensionless>());
+static_assert(mia::QuantityOne<units::dimensionless<int>>());
 
 // clang-format on
 

@@ -10,7 +10,6 @@ function(mia_add_test name)
 endfunction()
 
 mia_add_test(include_ext_std_chrono)
-mia_add_test(include_ext_units)
 mia_add_test(include_concepts)
 mia_add_test(include_units)
 mia_add_test(all_includes)

@@ -11,7 +11,6 @@ Table \[ext] -- Extensions headers summary
 |               | Subclause                | Header(s)                   |
 | ------------- | ------------------------ | --------------------------- |
 | \[ext.chrono] | `std::chrono` extensions | `<jegp/ext/std/chrono.hpp>` |
-| \[ext.units]  | `units` extensions       | `<jegp/ext/units.hpp>`      |
 
 ## `std::chrono` extensions \[ext.chrono]
 
@@ -58,48 +57,6 @@ struct common_type<
   : std::common_type<
         std::chrono::time_point<Clock, Duration1>,
         std::chrono::time_point<Clock, Duration2>> {
-};
-
-} // namespace ranges
-```
-
-## `units` extensions \[ext.units]
-
-This subclause describes a specialization of `ranges::common_type`
-that is adapted from those of `std::common_type` in `units`.
-
-### Header `<jegp/ext/units.hpp>` synopsis \[ext.units.syn]
-
-```C++
-#include <units.h>
-
-namespace ranges {
-
-// \[ext.units.specialization], specialization of `ranges::common_type`
-template <
-    class UnitType1, class T1, template <class> class NonLinearScale1,
-    class UnitType2, class T2, template <class> class NonLinearScale2>
-struct common_type<
-    units::unit<UnitType1, T1, NonLinearScale1>,
-    units::unit<UnitType2, T2, NonLinearScale2>>;
-
-} // namespace ranges
-```
-
-### Specialization of `ranges::common_type` \[ext.units.specialization]
-
-```C++
-namespace ranges {
-
-template <
-    class UnitType1, class T1, template <class> class NonLinearScale1,
-    class UnitType2, class T2, template <class> class NonLinearScale2>
-struct common_type<
-    units::unit<UnitType1, T1, NonLinearScale1>,
-    units::unit<UnitType2, T2, NonLinearScale2>>
-  : std::common_type<
-        units::unit<UnitType1, T1, NonLinearScale1>,
-        units::unit<UnitType2, T2, NonLinearScale2>> {
 };
 
 } // namespace ranges
