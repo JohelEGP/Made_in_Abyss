@@ -2,8 +2,7 @@ if(NOT BUILD_TESTING)
     return()
 endif()
 
-include(FindBoost)
-find_package(Boost 1.61.0 REQUIRED)
+include(mia_find_tests_dependencies)
 
 # ```
 # mia_add_test(<name>
