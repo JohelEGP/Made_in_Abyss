@@ -13,7 +13,6 @@ target_link_libraries(mia INTERFACE
     GSL
     range-v3
     jegp::jegp
-    fmt::fmt-header-only
     units)
 
 add_executable(Made_in_Abyss src/mia.cpp)
