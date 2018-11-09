@@ -55,11 +55,12 @@ matrix:
         - boost1.67
   - os: linux
     compiler: clang
-    apt:
-      sources:
-      - sourceline: 'ppa:mhier/libboost-latest'
-      packages:
-      - boost1.67
+    addons:
+      apt:
+        sources:
+        - sourceline: 'ppa:mhier/libboost-latest'
+        packages:
+        - boost1.67
     env:
     - MATRIX_EVAL="USE_LIBCXX=1"
 
