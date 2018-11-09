@@ -1,7 +1,3 @@
-if(NOT BUILD_TESTING)
-    return()
-endif()
-
 include(mia_find_tests_dependencies)
 
 # ```

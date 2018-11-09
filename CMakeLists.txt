@@ -19,4 +19,6 @@ add_executable(Made_in_Abyss src/mia.cpp)
 target_link_libraries(Made_in_Abyss PRIVATE mia::mia)
 
 include(CTest)
-include(mia_add_tests)
+if(BUILD_TESTING)
+    include(mia_add_tests)
+endif()
