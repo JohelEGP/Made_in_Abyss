@@ -32,20 +32,19 @@ function(mia_add_test name)
     endif()
 endfunction()
 
-macro(mia_add_concepts_test step)
-    mia_add_test(concepts${step}
-        BUILD_ONLY
-        SOURCE concepts.cpp
-        COMPILE_OPTIONS -DMIA_TEST_STEP=${step}
-        LINK_LIBRARIES Boost::boost units)
+macro(mia_add_concepts_tests)
+    foreach(step RANGE 3)
+        mia_add_test(concepts${step}
+            BUILD_ONLY
+            SOURCE concepts.cpp
+            COMPILE_OPTIONS -DMIA_TEST_STEP=${step}
+            LINK_LIBRARIES Boost::boost units)
+    endforeach()
 endmacro()
 
 mia_add_test(include_ext_std_chrono BUILD_ONLY)
 mia_add_test(include_concepts BUILD_ONLY)
 mia_add_test(include_units BUILD_ONLY)
 mia_add_test(all_includes BUILD_ONLY)
-mia_add_concepts_test(0)
-mia_add_concepts_test(1)
-mia_add_concepts_test(2)
-mia_add_concepts_test(3)
+mia_add_concepts_tests()
 mia_add_test(units LINK_LIBRARIES range-v3 fmt::fmt-header-only units)
