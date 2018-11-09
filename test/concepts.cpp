@@ -2,6 +2,7 @@
 #include <boost/hana/basic_tuple.hpp>
 #include <boost/hana/flatten.hpp>
 #include <boost/hana/transform.hpp>
+#include <boost/hana/unpack.hpp>
 #include <units/time.h>
 #include <mia/concepts.hpp>
 #include <mia/ext/std/chrono.hpp>
@@ -43,6 +44,10 @@ constexpr int test()
     static_assert_<mia::QuantityOne>(arithmetic_types);
 #endif
 
+    constexpr boost::hana::basic_tuple<
+        std::milli, std::ratio<1>, std::ratio<60>>
+        periods;
+
     [[maybe_unused]] constexpr boost::hana::basic_tuple durations{[=] {
         constexpr auto make_durations = [=](auto period) {
             return boost::hana::transform(arithmetic_types, [](auto arith) {
@@ -51,12 +56,10 @@ constexpr int test()
             });
         };
 
-        return [=](auto... periods) {
+        return boost::hana::unpack(periods, [=](auto... periods) {
             return boost::hana::flatten(
                 boost::hana::make_basic_tuple(make_durations(periods)...));
-        }(std::milli{}, std::ratio<2, 2000>{}, std::ratio<1>{},
-               std::ratio<2, 2>{}, std::chrono::minutes::period{},
-               std::ratio<120, 2>{});
+        });
     }()};
 
 #if MIA_TEST_STEP == 1
@@ -74,16 +77,16 @@ constexpr int test()
         };
 
         constexpr auto time_unit = [](auto period) {
-            return units::unit<units::conversion_factor<
-                decltype(period), units::dimension::time>>{};
+            return units::traits::strong_t<units::unit<units::conversion_factor<
+                decltype(period), units::dimension::time>>>{};
         };
 
-        return [=](auto... units) {
-            return boost::hana::flatten(
-                boost::hana::make_basic_tuple(make_units(units)...));
-        }(units::millisecond_t{}, time_unit(std::ratio<2, 2000>{}),
-               units::second_t{}, time_unit(std::ratio<2, 2>{}),
-               units::minute_t{}, time_unit(std::ratio<120, 2>{}));
+        return boost::hana::unpack(periods, [=](auto... periods) {
+            return [=](auto... units) {
+                return boost::hana::flatten(
+                    boost::hana::make_basic_tuple(make_units(units)...));
+            }(time_unit(periods)...);
+        });
     }()};
 
 #if MIA_TEST_STEP == 2
