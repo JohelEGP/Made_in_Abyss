@@ -32,21 +32,32 @@ constexpr auto static_assert_ =
 
 constexpr int test()
 {
+#if MIA_TEST_EXTENSIVELY
     constexpr boost::hana::basic_tuple<
         signed char, int, long long, unsigned char, unsigned,
         unsigned long long, float, double, long double>
         arithmetic_types;
+#else
+    constexpr boost::hana::basic_tuple<int, unsigned, double> arithmetic_types;
+#endif
 
-#if MIA_TEST_STEP == 0
+#if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 0
     static_assert_<mia::WeakQuantity>(arithmetic_types);
     static_assert_<mia::WeakQuantityWith>(arithmetic_types, arithmetic_types);
     static_assert_<mia::QuantityOneWith>(arithmetic_types, arithmetic_types);
     static_assert_<mia::QuantityOne>(arithmetic_types);
 #endif
 
+#if MIA_TEST_EXTENSIVELY
+    constexpr boost::hana::basic_tuple<
+        std::milli, std::ratio<2, 2000>, std::ratio<1>, std::ratio<2, 2>,
+        std::ratio<60>, std::ratio<120, 2>>
+        periods;
+#else
     constexpr boost::hana::basic_tuple<
         std::milli, std::ratio<1>, std::ratio<60>>
         periods;
+#endif
 
     [[maybe_unused]] constexpr boost::hana::basic_tuple durations{[=] {
         constexpr auto make_durations = [=](auto period) {
@@ -62,7 +73,7 @@ constexpr int test()
         });
     }()};
 
-#if MIA_TEST_STEP == 1
+#if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 1
     static_assert_<mia::WeakQuantity>(durations);
     static_assert_<mia::WeakQuantityWith>(durations, durations);
     static_assert_<mia::QuantityOneWith>(arithmetic_types, durations);
@@ -89,7 +100,7 @@ constexpr int test()
         });
     }()};
 
-#if MIA_TEST_STEP == 2
+#if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 2
     static_assert_<mia::WeakQuantity>(time_units);
     static_assert_<mia::WeakQuantityWith>(time_units, time_units);
     static_assert_<mia::QuantityOneWith>(arithmetic_types, time_units);
@@ -100,7 +111,7 @@ constexpr int test()
             return units::dimensionless{arith};
         })};
 
-#if MIA_TEST_STEP == 3
+#if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 3
     static_assert_<mia::WeakQuantity>(dimensionless_units);
     static_assert_<mia::WeakQuantityWith>(
         dimensionless_units, dimensionless_units);

@@ -18,6 +18,7 @@ target_link_libraries(mia INTERFACE
 add_executable(Made_in_Abyss src/mia.cpp)
 target_link_libraries(Made_in_Abyss PRIVATE mia::mia)
 
+option(MIA_TEST_EXTENSIVELY "Performs a combinatorial explosion of test cases.")
 include(CTest)
 if(BUILD_TESTING)
     include(mia_add_tests)

@@ -20,7 +20,9 @@ function(mia_add_test name)
     list(GET ADD_TEST_SOURCE 0 source)
 
     add_executable(mia_test_${name} test/${source})
-    target_compile_options(mia_test_${name} PRIVATE ${ADD_TEST_COMPILE_OPTIONS})
+    target_compile_options(mia_test_${name} PRIVATE
+        ${ADD_TEST_COMPILE_OPTIONS}
+        -DMIA_TEST_EXTENSIVELY=$<BOOL:${MIA_TEST_EXTENSIVELY}>)
     target_link_libraries(mia_test_${name}
         PRIVATE ${ADD_TEST_LINK_LIBRARIES} mia::mia)
     if(NOT ADD_TEST_BUILD_ONLY)
@@ -29,7 +31,7 @@ function(mia_add_test name)
 endfunction()
 
 macro(mia_add_concepts_tests)
-    foreach(step RANGE 3)
+    foreach(step RANGE $<IF:$<BOOL:${MIA_TEST_EXTENSIVELY}>,3,0>)
         mia_add_test(concepts${step}
             BUILD_ONLY
             SOURCE concepts.cpp
