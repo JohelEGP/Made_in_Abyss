@@ -43,7 +43,7 @@ inline namespace display_length { //
 
     // \[display.units.aliases], aliases
     template <class Arithmetic>
-    using Pixels = /*see below*/
+    using Pixels = /*see below*/;
 
 } // namespace display_length
 
