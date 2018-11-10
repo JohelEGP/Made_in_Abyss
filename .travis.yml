@@ -9,50 +9,50 @@ env:
 
 matrix:
   include:
-  - os: linux
-    compiler: gcc
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - sourceline: 'ppa:mhier/libboost-latest'
-        packages:
-        - g++-8
-        - boost1.67
-    env:
-    - MATRIX_EVAL="CXX=g++-8"
-  - os: linux
-    compiler: clang
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - sourceline: 'ppa:mhier/libboost-latest'
-        packages:
-        - g++-8
-        - boost1.67
-    env:
-    - MATRIX_EVAL="CLANG_VERSION=6.0.0"
-  - os: linux
-    compiler: clang
-    addons:
-      apt:
-        sources:
-        - sourceline: 'ppa:mhier/libboost-latest'
-        packages:
-        - boost1.67
-    env:
-    - MATRIX_EVAL="CLANG_VERSION=6.0.0 && USE_LIBCXX=1"
-  - os: linux
-    compiler: clang
-    addons:
-      apt:
-        sources:
-        - ubuntu-toolchain-r-test
-        - sourceline: 'ppa:mhier/libboost-latest'
-        packages:
-        - g++-8
-        - boost1.67
+  #- os: linux
+    #compiler: gcc
+    #addons:
+      #apt:
+        #sources:
+        #- ubuntu-toolchain-r-test
+        #- sourceline: 'ppa:mhier/libboost-latest'
+        #packages:
+        #- g++-8
+        #- boost1.67
+    #env:
+    #- MATRIX_EVAL="CXX=g++-8"
+  #- os: linux
+    #compiler: clang
+    #addons:
+      #apt:
+        #sources:
+        #- ubuntu-toolchain-r-test
+        #- sourceline: 'ppa:mhier/libboost-latest'
+        #packages:
+        #- g++-8
+        #- boost1.67
+    #env:
+    #- MATRIX_EVAL="CLANG_VERSION=6.0.0"
+  #- os: linux
+    #compiler: clang
+    #addons:
+      #apt:
+        #sources:
+        #- sourceline: 'ppa:mhier/libboost-latest'
+        #packages:
+        #- boost1.67
+    #env:
+    #- MATRIX_EVAL="CLANG_VERSION=6.0.0 && USE_LIBCXX=1"
+  #- os: linux
+    #compiler: clang
+    #addons:
+      #apt:
+        #sources:
+        #- ubuntu-toolchain-r-test
+        #- sourceline: 'ppa:mhier/libboost-latest'
+        #packages:
+        #- g++-8
+        #- boost1.67
   - os: linux
     compiler: clang
     addons:
