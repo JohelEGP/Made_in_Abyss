@@ -104,18 +104,18 @@ constexpr void test_pixels()
         assert(42 % 42 == (i % 42L)());
         assert(42 % 42 == (l % i)());
         assert(42 % 42 == (i % l)());
-        assert(42 + 42 == ((l += i))());
-        assert(42 + 84 == ((i += l))());
-        assert(84 - 126 == ((l -= i))());
-        assert(126 + 42 == ((i -= l))());
-        assert(-42 * -2 == ((l *= -2.0))());
-        assert(168 * 1 == ((i *= 1.0))());
-        assert(84 / 2 == ((l /= 2))());
-        assert(168 / 4 == ((i /= 4L))());
-        assert(42 % 42 == ((l %= 42))());
-        assert(42 % 42 == ((i %= 42L))());
-        assert(42 % 42 == ((l %= 42_px))());
-        assert(42 % 42 == ((i %= mia::Pixels<long>{42}))());
+        assert(42 + 42 == (l += i)());
+        assert(42 + 84 == (i += l)());
+        assert(84 - 126 == (l -= i)());
+        assert(126 + 42 == (i -= l)());
+        assert(-42 * -2 == (l *= -2.0)());
+        assert(168 * 1 == (i *= 1.0)());
+        assert(84 / 2 == (l /= 2)());
+        assert(168 / 4 == (i /= 4L)());
+        assert(42 % 42 == (l %= 42)());
+        assert(42 % 42 == (i %= 42L)());
+        assert(42 % 42 == (l %= 42_px)());
+        assert(42 % 42 == (i %= mia::Pixels<long>{42})());
     }
 }
 
