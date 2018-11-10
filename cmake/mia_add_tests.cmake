@@ -31,12 +31,15 @@ function(mia_add_test name)
 endfunction()
 
 macro(mia_add_concepts_tests)
-    foreach(step RANGE $<IF:$<BOOL:${MIA_TEST_EXTENSIVELY}>,3,0>)
+    foreach(step RANGE 3)
         mia_add_test(concepts${step}
             BUILD_ONLY
             SOURCE concepts.cpp
             COMPILE_OPTIONS -DMIA_TEST_STEP=${step}
             LINK_LIBRARIES Boost::boost units)
+        if(NOT MIA_TEST_EXTENSIVELY)
+            break()
+        endif()
     endforeach()
 endmacro()
 
