@@ -10,7 +10,7 @@
 #include <gsl/string_span>
 #include <range/v3/utility/common_type.hpp>
 #include <range/v3/utility/concepts.hpp>
-#include <units.h>
+#include <units/core.h>
 #include <jegp/utility.hpp>
 #include <mia/concepts.hpp>
 
