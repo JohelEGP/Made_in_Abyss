@@ -283,8 +283,10 @@ shall be `true`.
 shall be `true`,
 no diagnostic required.
 
+Let `Aliased1` and `Aliased2` be types
+such that `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
 `ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
-shall be
+shall name
 `Alias<ranges::common_type_t<Aliased1, Aliased2>>`,
 no diagnostic required.
 
