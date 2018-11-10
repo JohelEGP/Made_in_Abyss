@@ -66,6 +66,7 @@ matrix:
 
 before_script:
 - eval "${MATRIX_EVAL}"
+- travis/install_cmake.sh
 - |
   if [ -n "$CLANG_VERSION" ]; then
     travis/install_clang.sh ${CLANG_VERSION}
