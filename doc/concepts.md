@@ -77,10 +77,10 @@ struct QuantityOneWith {
 
 } // namespace mia::concepts
 ```
-\[ _Note:_ The `QuantityOneWith` concept
+The `QuantityOneWith` concept
 is satisfied by ordered pairs of types
 where the first type behaves like a quantity of dimension one
-with respect to the second type. -- _end note_ ]
+with respect to the second type.
 
 ```C++
 namespace mia::concepts {
@@ -105,11 +105,11 @@ struct WeakQuantity {
 
 } // namespace mia::concepts
 ```
-\[ _Note:_  The `WeakQuantity` concept
+The `WeakQuantity` concept
 is satisfied by types
 that behave like quantities
 with respect to operations
-that result in the same unit. -- _end note_ ]
+that result in the same unit.
 
 ```C++
 namespace mia::concepts {
@@ -123,9 +123,9 @@ struct QuantityOne {
 
 } // namespace mia::concepts
 ```
-\[ _Note:_ The `QuantityOne` concept
+The `QuantityOne` concept
 is satisfied by types
-that behave like quantities of dimension one. -- _end note_ ]
+that behave like quantities of dimension one.
 
 ```C++
 namespace mia::concepts {
@@ -161,8 +161,8 @@ and `C` be `ranges::common_reference_t<T, U>`.
 - `t / u == C(t) / C(u)`.
 - `u / t == C(u) / C(t)`.
 
-\[ _Note:_ The `WeakQuantityWith` concept
+The `WeakQuantityWith` concept
 is satisfied by unordered pairs of types
 that behave like quantities
 with respect to operations
-that result in the same dimension. -- _end note_ ]
+that result in the same dimension.
