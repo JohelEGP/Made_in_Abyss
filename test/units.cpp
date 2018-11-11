@@ -2,7 +2,6 @@
 #include <functional>
 #include <type_traits>
 #include <range/v3/utility/common_type.hpp>
-#include <range/v3/utility/concepts.hpp>
 #include <fmt/ostream.h>
 #include <mia/concepts.hpp>
 #include <mia/units.hpp>
@@ -16,7 +15,6 @@ constexpr void test_pixels()
     static_assert(std::is_trivial_v<mia::Pixels<int>>);
     static_assert(std::is_standard_layout_v<mia::Pixels<double>>);
 
-    static_assert(ranges::Regular<mia::Pixels<int>>());
     static_assert(mia::WeakQuantity<mia::Pixels<double>>());
     static_assert(
         mia::WeakQuantityWith<mia::Pixels<int>, mia::Pixels<double>>());
@@ -154,14 +152,12 @@ constexpr void test_radius()
     static_assert(std::is_trivial_v<Radius<mia::Pixels<int>>>);
     static_assert(std::is_standard_layout_v<Radius<mia::Pixels<double>>>);
 
-    static_assert(ranges::Regular<Radius<mia::Pixels<int>>>());
     static_assert(mia::WeakQuantity<Radius<mia::Pixels<double>>>());
     static_assert(mia::WeakQuantityWith<
                   Radius<mia::Pixels<int>>, Radius<mia::Pixels<double>>>());
     static_assert(mia::QuantityOneWith<int, Radius<mia::Pixels<double>>>());
     static_assert(!mia::QuantityOne<Radius<mia::Pixels<double>>>());
 
-    static_assert(ranges::Regular<Radius<int>>());
     static_assert(mia::WeakQuantity<Radius<double>>());
     static_assert(mia::WeakQuantityWith<Radius<int>, Radius<double>>());
     static_assert(mia::QuantityOneWith<double, Radius<int>>());
@@ -297,7 +293,6 @@ constexpr void test_perimeter()
     static_assert(std::is_trivial_v<Perimeter<int>>);
     static_assert(std::is_standard_layout_v<Perimeter<double>>);
 
-    static_assert(ranges::Regular<Perimeter<int>>());
     static_assert(mia::WeakQuantity<Perimeter<double>>());
     static_assert(mia::WeakQuantityWith<Perimeter<int>, Perimeter<double>>());
     static_assert(mia::QuantityOneWith<int, Perimeter<double>>());
