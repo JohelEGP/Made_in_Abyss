@@ -153,7 +153,7 @@ Let `t` and `u` be lvalues
 of types `const T` and `const U`,
 respectively,
 and `C` be `ranges::common_reference_t<T, U>`.
-`WeakQuantityWith` is satisfied only if:
+`WeakQuantityWith<T, U>` is satisfied only if:
 - `t + u == C(t) + C(u)`.
 - `u + t == C(u) + C(t)`.
 - `t - u == C(t) - C(u)`.
