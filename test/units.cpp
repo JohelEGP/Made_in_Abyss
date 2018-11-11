@@ -395,7 +395,6 @@ constexpr void test_perimeter()
 
 void runtime_test_perimeter()
 {
-    using namespace mia::pixels_literals;
     assert((fmt::format("{}", Perimeter<int>{20})) == "20");
 }
 
