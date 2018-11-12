@@ -384,4 +384,20 @@ struct hash<mia::Unit_alias<Alias, Aliased>> : private hash<Aliased> {
 
 } // namespace std
 
+namespace mia::detail {
+
+template <template <class> class Alias, class Aliased>
+class Unit_alias_hash : std::hash<mia::Unit_alias<Alias, Aliased>> {
+    using Base = std::hash<mia::Unit_alias<Alias, Aliased>>;
+
+public:
+    constexpr auto operator()(const Alias<Aliased>& a) noexcept(
+        noexcept(Base{}(a))) -> decltype(Base{}(a))
+    {
+        return Base{}(a);
+    }
+};
+
+} // namespace mia::detail
+
 #endif // MIA_UNITS_HPP

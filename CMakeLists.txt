@@ -11,6 +11,7 @@ target_include_directories(mia INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_features(mia INTERFACE cxx_std_17)
 target_link_libraries(mia INTERFACE
     GSL
+    Boost::boost
     range-v3
     jegp::jegp
     units)

@@ -1,5 +1,9 @@
 include(mia_find_tests_dependencies)
 
+add_library(mia_test_bug_flags INTERFACE)
+target_compile_options(mia_test_bug_flags INTERFACE
+    $<$<CXX_COMPILER_ID:GNU>:-DMIA_GCC_BUG_71504>)
+
 # ```
 # mia_add_test(<name>
 #   [BUILD_ONLY]
@@ -24,7 +28,7 @@ function(mia_add_test name)
         ${ADD_TEST_COMPILE_OPTIONS}
         -DMIA_TEST_EXTENSIVELY=$<BOOL:${MIA_TEST_EXTENSIVELY}>)
     target_link_libraries(mia_test_${name}
-        PRIVATE ${ADD_TEST_LINK_LIBRARIES} mia::mia)
+        PRIVATE ${ADD_TEST_LINK_LIBRARIES} mia::mia mia_test_bug_flags)
     if(NOT ADD_TEST_BUILD_ONLY)
         add_test(mia_test_${name} mia_test_${name})
     endif()
@@ -46,6 +50,14 @@ endmacro()
 mia_add_test(include_ext_std_chrono BUILD_ONLY)
 mia_add_test(include_concepts BUILD_ONLY)
 mia_add_test(include_units BUILD_ONLY)
+mia_add_test(include_spacial BUILD_ONLY)
 mia_add_test(all_includes BUILD_ONLY)
 mia_add_concepts_tests()
 mia_add_test(units LINK_LIBRARIES range-v3 fmt::fmt-header-only units)
+mia_add_test(spacial
+    BUILD_ONLY
+    LINK_LIBRARIES
+        GSL
+        Boost::boost
+        range-v3
+        jegp::jegp)

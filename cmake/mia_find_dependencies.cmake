@@ -1,3 +1,6 @@
+include(FindBoost)
+find_package(Boost 1.61.0 REQUIRED)
+
 include(FetchContent)
 
 FetchContent_Declare(GSL
