@@ -164,7 +164,6 @@ struct Display_length_tag {
 
 } // namespace mia::dimension
 ```
-
 _Display length_ is a base quantity
 represented by `mia::dimension::Display_length`.
 The pixel is its base unit.
@@ -185,7 +184,6 @@ using Pixels = units::unit<
     units::unit_conversion<std::ratio<1>, mia::dimension::Display_length>,
     Arithmetic>;
 ```
-
 A _pixel_ is
 "the smallest addressable element
 in an all points addressable display device"
@@ -275,7 +273,6 @@ private:
 
 } // namespace mia
 ```
-
 `WeakQuantity<Aliased>()`
 shall be `true`.
 
@@ -463,7 +460,6 @@ _Effects:_ Equivalent to:
 ```C++
 return Alias<decltype(+a.unaliased())>(+a.unaliased());
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(+a.unaliased())>(+a.unaliased()))
@@ -478,7 +474,6 @@ _Effects:_ Equivalent to:
 ```C++
 return Alias<decltype(-a.unaliased())>(-a.unaliased());
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(-a.unaliased())>(-a.unaliased()))
@@ -495,7 +490,6 @@ _Effects:_ Equivalent to:
 return Alias<decltype(l.unaliased() + r.unaliased())>(
     l.unaliased() + r.unaliased());
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l.unaliased() + r.unaliased())>(
@@ -515,7 +509,6 @@ _Effects:_ Equivalent to:
 return Alias<decltype(l.unaliased() - r.unaliased())>(
     l.unaliased() - r.unaliased());
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l.unaliased() - r.unaliased())>(
@@ -533,7 +526,6 @@ _Effects:_ Equivalent to:
 ```C++
 return Alias<decltype(l.unaliased() * r)>(l.unaliased() * r);
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l.unaliased() * r)>(Alias(l.unaliased() * r))
@@ -550,7 +542,6 @@ _Effects:_ Equivalent to:
 ```C++
 return Alias<decltype(l * r.unaliased())>(l * r.unaliased());
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l * r.unaliased())>(l * r.unaliased()))
@@ -567,7 +558,6 @@ _Effects:_ Equivalent to:
 ```C++
 return Alias<decltype(l.unaliased() / r)>(l.unaliased() / r);
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l.unaliased() / r)>(l.unaliased() / r))
@@ -597,7 +587,6 @@ _Effects:_ Equivalent to:
 ```C++
 return Alias<decltype(l.unaliased() % r)>(l.unaliased() % r);
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l.unaliased() % r)>(l.unaliased() % r))
@@ -616,7 +605,6 @@ _Effects:_ Equivalent to:
 return Alias<decltype(l.unaliased() % r.unaliased())>(
     l.unaliased() % r.unaliased());
 ```
-
 _Remarks:_ The expression inside `noexcept` is equivalent to
 ```C++
 noexcept(Alias<decltype(l.unaliased() % r.unaliased())>(
@@ -692,7 +680,6 @@ template <class... T, template <class> class Alias, class Aliased>
 std::basic_ostream<T...>& operator<<(
     std::basic_ostream<T...>& os, const Unit_alias<Alias, Aliased>& a);
 ```
-
 _Effects:_ Equivalent to: `return os << a.unaliased();`
 
 #### Specializations \[unit.alias.specs]
@@ -718,7 +705,6 @@ struct hash<mia::Unit_alias<Alias, Aliased>>;
 
 } // namespace std
 ```
-
 This specialization is enabled (C++ Standard's \[unord.hash])
 if and only if `std::hash<Aliased>` is enabled.
 The special member functions are `noexcept` and `constexpr`
