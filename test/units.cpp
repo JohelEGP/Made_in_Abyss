@@ -12,7 +12,13 @@ namespace {
 
 constexpr void test_pixels()
 {
-    static_assert(std::is_trivial_v<mia::Pixels<int>>);
+    static_assert(std::is_trivially_default_constructible_v<mia::Pixels<int>>);
+    static_assert(std::is_trivially_copy_constructible_v<mia::Pixels<int>>);
+    static_assert(std::is_trivially_move_constructible_v<mia::Pixels<int>>);
+    static_assert(std::is_trivially_copy_assignable_v<mia::Pixels<int>>);
+    static_assert(std::is_trivially_move_assignable_v<mia::Pixels<int>>);
+    static_assert(std::is_trivially_destructible_v<mia::Pixels<int>>);
+
     static_assert(std::is_standard_layout_v<mia::Pixels<double>>);
 
     static_assert(mia::WeakQuantity<mia::Pixels<double>>());
@@ -149,7 +155,18 @@ namespace {
 
 constexpr void test_radius()
 {
-    static_assert(std::is_trivial_v<Radius<mia::Pixels<int>>>);
+    static_assert(
+        std::is_trivially_default_constructible_v<Radius<mia::Pixels<int>>>);
+    static_assert(
+        std::is_trivially_copy_constructible_v<Radius<mia::Pixels<int>>>);
+    static_assert(
+        std::is_trivially_move_constructible_v<Radius<mia::Pixels<int>>>);
+    static_assert(
+        std::is_trivially_copy_assignable_v<Radius<mia::Pixels<int>>>);
+    static_assert(
+        std::is_trivially_move_assignable_v<Radius<mia::Pixels<int>>>);
+    static_assert(std::is_trivially_destructible_v<Radius<mia::Pixels<int>>>);
+
     static_assert(std::is_standard_layout_v<Radius<mia::Pixels<double>>>);
 
     static_assert(mia::WeakQuantity<Radius<mia::Pixels<double>>>());
@@ -290,7 +307,13 @@ namespace {
 
 constexpr void test_perimeter()
 {
-    static_assert(std::is_trivial_v<Perimeter<int>>);
+    static_assert(std::is_trivially_default_constructible_v<Perimeter<int>>);
+    static_assert(std::is_trivially_copy_constructible_v<Perimeter<int>>);
+    static_assert(std::is_trivially_move_constructible_v<Perimeter<int>>);
+    static_assert(std::is_trivially_copy_assignable_v<Perimeter<int>>);
+    static_assert(std::is_trivially_move_assignable_v<Perimeter<int>>);
+    static_assert(std::is_trivially_destructible_v<Perimeter<int>>);
+
     static_assert(std::is_standard_layout_v<Perimeter<double>>);
 
     static_assert(mia::WeakQuantity<Perimeter<double>>());
