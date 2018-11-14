@@ -77,7 +77,7 @@ public:
     template <
         class Aliased2, CONCEPT_REQUIRES_(
                             ranges::Constructible<aliased, Aliased2>() &&
-                            !ranges::ConvertibleTo<Aliased2, aliased>())>
+                            !std::is_convertible_v<Aliased2, aliased>)>
     explicit constexpr Unit_alias(const Unit_alias<Alias, Aliased2>& a) noexcept(
         noexcept(a.unaliased()) &&
         std::is_nothrow_constructible_v<aliased, Aliased2>)
@@ -88,7 +88,7 @@ public:
     template <
         class Aliased2, CONCEPT_REQUIRES_(
                             ranges::Constructible<aliased, Aliased2>() &&
-                            ranges::ConvertibleTo<Aliased2, aliased>())>
+                            std::is_convertible_v<Aliased2, aliased>)>
     constexpr Unit_alias(const Unit_alias<Alias, Aliased2>& a) noexcept(
         noexcept(a.unaliased()) &&
         std::is_nothrow_constructible_v<aliased, Aliased2>)

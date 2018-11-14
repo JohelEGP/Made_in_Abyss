@@ -318,7 +318,7 @@ _Remarks:_ The expression inside `noexcept` is equivalent to
 This constructor shall not participate in overload resolution
 unless `ranges::Constructible<aliased, Aliased2>()` is `true`.
 The constructor is explicit if and only if
-`ranges::ConvertibleTo<Aliased2, aliased>()` is `false`.
+`std::is_convertible_v<Aliased2, aliased>` is `false`.
 
 #### Observer \[unit.alias.obs]
 
