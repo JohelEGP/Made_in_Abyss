@@ -25,7 +25,7 @@ namespace concepts {
                 model_of<ranges::concepts::Same, U&>(l /= o)));
     };
 
-    struct WeakQuantity {
+    struct Quantity {
         template <class T>
         auto requires_(const T& c, T& l)
             -> decltype(ranges::concepts::valid_expr(
@@ -47,18 +47,18 @@ namespace concepts {
     struct QuantityOne {
         template <class T>
         auto requires_() -> decltype(ranges::concepts::valid_expr(
-            model_of<WeakQuantity, T>(), //
+            model_of<Quantity, T>(), //
             model_of<QuantityOneWith, T, T>()));
     };
 
-    struct WeakQuantityWith {
+    struct QuantityWith {
         template <class T, class U, class C = ranges::common_reference_t<T, U>>
         auto requires_(const T& t, const U& u)
             -> decltype(ranges::concepts::valid_expr(
-                model_of<WeakQuantity, T>(), //
-                model_of<WeakQuantity, U>(),
+                model_of<Quantity, T>(), //
+                model_of<Quantity, U>(),
                 model_of<ranges::concepts::CommonReference, T, U>(),
-                model_of<WeakQuantity, C>(),
+                model_of<Quantity, C>(),
                 model_of<ranges::concepts::TotallyOrdered, T, U>(),
                 model_of<ranges::concepts::ConvertibleTo, C>(t + u),
                 model_of<ranges::concepts::ConvertibleTo, C>(u + t),
@@ -75,14 +75,13 @@ using QuantityOneWith =
     ranges::concepts::models<concepts::QuantityOneWith, T, U>;
 
 template <class T>
-using WeakQuantity = ranges::concepts::models<concepts::WeakQuantity, T>;
+using Quantity = ranges::concepts::models<concepts::Quantity, T>;
 
 template <class T>
 using QuantityOne = ranges::concepts::models<concepts::QuantityOne, T>;
 
 template <class T, class U>
-using WeakQuantityWith =
-    ranges::concepts::models<concepts::WeakQuantityWith, T, U>;
+using QuantityWith = ranges::concepts::models<concepts::QuantityWith, T, U>;
 
 } // namespace mia
 

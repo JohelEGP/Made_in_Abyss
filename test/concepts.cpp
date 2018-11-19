@@ -42,8 +42,8 @@ constexpr int test()
 #endif
 
 #if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 0
-    static_assert_<mia::WeakQuantity>(arithmetic_types);
-    static_assert_<mia::WeakQuantityWith>(arithmetic_types, arithmetic_types);
+    static_assert_<mia::Quantity>(arithmetic_types);
+    static_assert_<mia::QuantityWith>(arithmetic_types, arithmetic_types);
     static_assert_<mia::QuantityOneWith>(arithmetic_types, arithmetic_types);
     static_assert_<mia::QuantityOne>(arithmetic_types);
 #endif
@@ -74,8 +74,8 @@ constexpr int test()
     }()};
 
 #if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 1
-    static_assert_<mia::WeakQuantity>(durations);
-    static_assert_<mia::WeakQuantityWith>(durations, durations);
+    static_assert_<mia::Quantity>(durations);
+    static_assert_<mia::QuantityWith>(durations, durations);
     static_assert_<mia::QuantityOneWith>(arithmetic_types, durations);
 #endif
 
@@ -101,8 +101,8 @@ constexpr int test()
     }()};
 
 #if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 2
-    static_assert_<mia::WeakQuantity>(time_units);
-    static_assert_<mia::WeakQuantityWith>(time_units, time_units);
+    static_assert_<mia::Quantity>(time_units);
+    static_assert_<mia::QuantityWith>(time_units, time_units);
     static_assert_<mia::QuantityOneWith>(arithmetic_types, time_units);
 #endif
 
@@ -112,9 +112,8 @@ constexpr int test()
         })};
 
 #if !MIA_TEST_EXTENSIVELY || MIA_TEST_STEP == 3
-    static_assert_<mia::WeakQuantity>(dimensionless_units);
-    static_assert_<mia::WeakQuantityWith>(
-        dimensionless_units, dimensionless_units);
+    static_assert_<mia::Quantity>(dimensionless_units);
+    static_assert_<mia::QuantityWith>(dimensionless_units, dimensionless_units);
     static_assert_<mia::QuantityOne>(dimensionless_units);
 #endif
 
