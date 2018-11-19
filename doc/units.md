@@ -215,7 +215,7 @@ The following subclauses describe
 `Unit_alias<Alias, Aliased>`,
 a [strong type alias] of `Aliased`.
 It holds an object of the aliased type
-and wraps its `WeakQuantityWith` interface.
+and wraps its `QuantityWith` interface.
 `Alias` is used to identify
 the related strong type aliases.
 
@@ -273,7 +273,7 @@ private:
 
 } // namespace mia
 ```
-`WeakQuantity<Aliased>()`
+`Quantity<Aliased>()`
 shall be `true`.
 
 `ranges::DerivedFrom<Alias<Aliased>, Unit_alias<Alias, Aliased>>()`
@@ -281,7 +281,7 @@ shall be `true`,
 no diagnostic required.
 
 Let `Aliased1` and `Aliased2` be types
-such that `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
+such that `QuantityWith<Aliased1, Aliased2>()` is `true`.
 `ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
 shall name
 `Alias<ranges::common_type_t<Aliased1, Aliased2>>`,
@@ -380,7 +380,7 @@ _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(std::declval<aliased&>() += r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
+unless `QuantityWith<aliased, Aliased2>()` is `true`.
 
 ```C++
 template <class Aliased2>
@@ -394,7 +394,7 @@ _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(std::declval<aliased&>() -= r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
+unless `QuantityWith<aliased, Aliased2>()` is `true`.
 
 ```C++
 template <class One>
@@ -447,7 +447,7 @@ _Returns:_ `jegp::static_downcast<derived&>(*this)`.
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(std::declval<aliased&>() %= r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<aliased, Aliased2>()` is `true`.
+unless `QuantityWith<aliased, Aliased2>()` is `true`.
 
 #### Non-member arithmetic \[unit.alias.nonmember]
 
@@ -496,7 +496,7 @@ noexcept(Alias<decltype(l.unaliased() + r.unaliased())>(
     l.unaliased() + r.unaliased()))
 ```
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
+unless `QuantityWith<Aliased1, Aliased2>()` is `true`.
 
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
@@ -515,7 +515,7 @@ noexcept(Alias<decltype(l.unaliased() - r.unaliased())>(
     l.unaliased() - r.unaliased()))
 ```
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
+unless `QuantityWith<Aliased1, Aliased2>()` is `true`.
 
 ```C++
 template <template <class> class Alias, class Aliased, class One>
@@ -576,7 +576,7 @@ _Effects:_ Equivalent to: `return l.unaliased() / r.unaliased();`
 _Remarks:_ The expression inside `noexcept` is equivalent to
 `noexcept(l.unaliased() / r.unaliased())`.
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
+unless `QuantityWith<Aliased1, Aliased2>()` is `true`.
 
 ```C++
 template <template <class> class Alias, class Aliased, class One>
@@ -611,7 +611,7 @@ noexcept(Alias<decltype(l.unaliased() % r.unaliased())>(
     l.unaliased() % r.unaliased()))
 ```
 This function shall not participate in overload resolution
-unless `WeakQuantityWith<Aliased1, Aliased2>()` is `true`.
+unless `QuantityWith<Aliased1, Aliased2>()` is `true`.
 
 #### Comparisons \[unit.alias.cmp]
 
