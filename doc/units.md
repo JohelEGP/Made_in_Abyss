@@ -636,6 +636,9 @@ constexpr auto operator!=(
 ```
 _Effects:_ Equivalent to: `return !(l == r);`
 
+_Remarks:_ The expression inside `noexcept` is equivalent to
+`noexcept(!(l == r))`.
+
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator<(
@@ -665,6 +668,9 @@ constexpr auto operator<=(
 ```
 _Effects:_ Equivalent to: `return !(r < l);`
 
+_Remarks:_ The expression inside `noexcept` is equivalent to
+`noexcept(!(r < l))`.
+
 ```C++
 template <template <class> class Alias, class Aliased1, class Aliased2>
 constexpr auto operator>=(
@@ -672,6 +678,9 @@ constexpr auto operator>=(
     const Unit_alias<Alias, Aliased2>& r) noexcept(/*see below*/);
 ```
 _Effects:_ Equivalent to: `return !(l < r);`
+
+_Remarks:_ The expression inside `noexcept` is equivalent to
+`noexcept(!(l < r))`.
 
 #### I/O \[unit.alias.io]
 
