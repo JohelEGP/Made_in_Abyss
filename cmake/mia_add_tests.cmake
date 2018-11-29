@@ -1,8 +1,9 @@
 include(mia_find_tests_dependencies)
 
-add_library(mia_test_bug_flags INTERFACE)
-target_compile_options(mia_test_bug_flags INTERFACE
-    $<$<CXX_COMPILER_ID:GNU>:-DMIA_GCC_BUG_71504>)
+add_library(mia_test_flags INTERFACE)
+target_compile_options(mia_test_flags INTERFACE
+    $<$<CXX_COMPILER_ID:GNU>:-DMIA_GCC_BUG_71504>
+    -Wno-mismatched-tags)
 
 # ```
 # mia_add_test(<name>
@@ -28,7 +29,7 @@ function(mia_add_test name)
         ${ADD_TEST_COMPILE_OPTIONS}
         -DMIA_TEST_EXTENSIVELY=$<BOOL:${MIA_TEST_EXTENSIVELY}>)
     target_link_libraries(mia_test_${name}
-        PRIVATE ${ADD_TEST_LINK_LIBRARIES} mia::mia mia_test_bug_flags)
+        PRIVATE ${ADD_TEST_LINK_LIBRARIES} mia::mia mia_test_flags)
     if(NOT ADD_TEST_BUILD_ONLY)
         add_test(mia_test_${name} mia_test_${name})
     endif()
