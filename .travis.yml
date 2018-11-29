@@ -80,7 +80,7 @@ before_script:
 script:
 - cmake -E make_directory build
 - cmake -E chdir build cmake .. -DCMAKE_EXE_LINKER_FLAGS="$CMAKE_EXE_LINKER_FLAGS" -DMIA_TEST_EXTENSIVELY=ON
-- cmake --build build -j 2
+- cmake --build build
 - cmake -E chdir build ctest -E unitLibTest -j 2
 # See nholthaus/units#135.   ^~~~~~~~~~~~~~
 
