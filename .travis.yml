@@ -39,15 +39,6 @@ matrix:
     addons:
       apt:
         sources:
-        - sourceline: 'ppa:mhier/libboost-latest'
-        packages:
-        - boost1.67
-    env: MATRIX_EVAL="CLANG_VERSION=6.0.0 && USE_LIBCXX=1"
-  - os: linux
-    compiler: clang
-    addons:
-      apt:
-        sources:
         - ubuntu-toolchain-r-test
         - sourceline: 'ppa:mhier/libboost-latest'
         packages:
