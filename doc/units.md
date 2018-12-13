@@ -276,16 +276,18 @@ private:
 `Quantity<Aliased>()`
 shall be `true`.
 
-`ranges::DerivedFrom<Alias<Aliased>, Unit_alias<Alias, Aliased>>()`
-shall be `true`,
-no diagnostic required.
-
-Let `Aliased1` and `Aliased2` be types
-such that `QuantityWith<Aliased1, Aliased2>()` is `true`.
-`ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
-shall name
-`Alias<ranges::common_type_t<Aliased1, Aliased2>>`,
-no diagnostic required.
+`Alias<Aliased>` may be an incomplete type.
+Before any member of `Unit_alias`
+other than special member functions and `unaliased` is referenced:
+- `Alias<Aliased>` shall be complete.
+- `ranges::DerivedFrom<Alias<Aliased>, Unit_alias<Alias, Aliased>>()`
+  shall be `true`.
+- Let `Aliased1` and `Aliased2` be types
+  such that `QuantityWith<Aliased1, Aliased2>()` is `true`.
+  `ranges::common_type_t<Alias<Aliased1>, Alias<Aliased2>>`
+  shall name
+  `Alias<ranges::common_type_t<Aliased1, Aliased2>>`,
+  no diagnostic required.
 
 Members of `Unit_alias`
 shall not throw exceptions
